@@ -1,0 +1,10 @@
+@import "./forecastListItem/forecastListItem.module.scss";
+
+.content-cards-list {
+    justify-content: center;
+    display: grid;
+    grid-template-columns: 200px 200px 200px;
+    grid-template-rows: 185px 185px 185px;
+    grid-gap: 10px;
+    position: relative;
+}

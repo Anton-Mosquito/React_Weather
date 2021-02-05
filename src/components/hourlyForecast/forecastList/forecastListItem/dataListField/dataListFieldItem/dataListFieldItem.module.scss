@@ -1,0 +1,9 @@
+.cards__list-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .icon {
+        width: 10px;
+        height: 10px;
+    }
+}

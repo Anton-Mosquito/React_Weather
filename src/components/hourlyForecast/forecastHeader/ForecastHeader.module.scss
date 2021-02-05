@@ -1,0 +1,21 @@
+.content-cards-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    h2 {
+        font-weight: 700;
+        font-size: 2rem;
+        color: #e96e50;
+    }
+    div {
+        .icon {
+            width: 108px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 15px 35px rgba(255, 255, 255, 0.3);
+            border-radius: 2px;
+            backdrop-filter: blur(10px);
+        }
+    }
+}

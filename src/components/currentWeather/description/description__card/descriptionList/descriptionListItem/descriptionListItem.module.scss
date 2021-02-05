@@ -1,0 +1,10 @@
+.list__description-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.1rem;
+    .icon {
+        width: 10px;
+        height: 10px;
+    }
+}

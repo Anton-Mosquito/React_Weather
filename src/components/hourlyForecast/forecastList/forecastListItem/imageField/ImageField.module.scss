@@ -1,0 +1,12 @@
+.cards__image {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    img {
+        max-width: 50px;
+    }
+    figcaption {
+        font-size: 1.2rem;
+        font-weight: 500;
+    }
+}

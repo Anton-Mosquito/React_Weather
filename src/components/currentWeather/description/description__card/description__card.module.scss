@@ -1,0 +1,10 @@
+@import "./ImageField/ImageField.module.scss";
+@import "./TemperatuteField/temperatuteField.module.scss";
+@import "./descriptionList/descriptionList.module.scss";
+
+.content__description-card {
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: min-content;
+    grid-gap: 5px;
+}

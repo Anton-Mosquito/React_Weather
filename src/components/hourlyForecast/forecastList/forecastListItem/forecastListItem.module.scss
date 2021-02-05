@@ -1,0 +1,15 @@
+@import "./dateField/dateField.module.scss";
+@import "./imageField/ImageField.module.scss";
+@import "./dataListField/dataListField.module.scss";
+
+.cards {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 18px 50px repeat(2, 52px);
+    background: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 15px 35px rgba(255, 255, 255, 0.3);
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    padding: 5px;
+    cursor: pointer;
+}
