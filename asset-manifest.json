@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "/React_Weather/static/css/main.b2d2d1d0.chunk.css",
-    "main.js": "/React_Weather/static/js/main.ebb84e9a.chunk.js",
-    "main.js.map": "/React_Weather/static/js/main.ebb84e9a.chunk.js.map",
-    "runtime-main.js": "/React_Weather/static/js/runtime-main.0a88a16f.js",
-    "runtime-main.js.map": "/React_Weather/static/js/runtime-main.0a88a16f.js.map",
-    "static/js/2.26cdd46e.chunk.js": "/React_Weather/static/js/2.26cdd46e.chunk.js",
-    "static/js/2.26cdd46e.chunk.js.map": "/React_Weather/static/js/2.26cdd46e.chunk.js.map",
-    "static/js/3.f4bb68ad.chunk.js": "/React_Weather/static/js/3.f4bb68ad.chunk.js",
-    "static/js/3.f4bb68ad.chunk.js.map": "/React_Weather/static/js/3.f4bb68ad.chunk.js.map",
+    "main.css": "/React_Weather/static/css/main.223cd7cf.chunk.css",
+    "main.js": "/React_Weather/static/js/main.3cdd3536.chunk.js",
+    "main.js.map": "/React_Weather/static/js/main.3cdd3536.chunk.js.map",
+    "runtime-main.js": "/React_Weather/static/js/runtime-main.992caf33.js",
+    "runtime-main.js.map": "/React_Weather/static/js/runtime-main.992caf33.js.map",
+    "static/js/2.e2c504aa.chunk.js": "/React_Weather/static/js/2.e2c504aa.chunk.js",
+    "static/js/2.e2c504aa.chunk.js.map": "/React_Weather/static/js/2.e2c504aa.chunk.js.map",
+    "static/js/3.0ee33172.chunk.js": "/React_Weather/static/js/3.0ee33172.chunk.js",
+    "static/js/3.0ee33172.chunk.js.map": "/React_Weather/static/js/3.0ee33172.chunk.js.map",
     "index.html": "/React_Weather/index.html",
-    "static/css/main.b2d2d1d0.chunk.css.map": "/React_Weather/static/css/main.b2d2d1d0.chunk.css.map",
-    "static/js/2.26cdd46e.chunk.js.LICENSE.txt": "/React_Weather/static/js/2.26cdd46e.chunk.js.LICENSE.txt",
-    "static/media/sprite.5c2fe8ce.svg": "/React_Weather/static/media/sprite.5c2fe8ce.svg"
+    "static/css/main.223cd7cf.chunk.css.map": "/React_Weather/static/css/main.223cd7cf.chunk.css.map",
+    "static/js/2.e2c504aa.chunk.js.LICENSE.txt": "/React_Weather/static/js/2.e2c504aa.chunk.js.LICENSE.txt",
+    "static/media/sprite.990562bc.svg": "/React_Weather/static/media/sprite.990562bc.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.0a88a16f.js",
-    "static/js/2.26cdd46e.chunk.js",
-    "static/css/main.b2d2d1d0.chunk.css",
-    "static/js/main.ebb84e9a.chunk.js"
+    "static/js/runtime-main.992caf33.js",
+    "static/js/2.e2c504aa.chunk.js",
+    "static/css/main.223cd7cf.chunk.css",
+    "static/js/main.3cdd3536.chunk.js"
   ]
 }
