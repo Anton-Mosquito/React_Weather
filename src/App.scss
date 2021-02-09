@@ -1,6 +1,8 @@
 @import "./components/currentWeather/currentWeather.module.scss";
 @import "./components/hourlyForecast/hourlyForecast.module.scss";
 @import "./components/loader/loader.module.scss";
+@import "./components/spinner/spinner.module.scss";
+@import "./components/404/404.module.scss";
 
 $particleSize: 20vmin;
 $animationDuration: 6s;
@@ -13,6 +15,7 @@ $colors: (#171730, #21172f, #15222c);
         width: 100vw;
         height: 100vh;
         background: #48484a;
+        z-index: 1;
         span {
             width: $particleSize;
             height: $particleSize;
@@ -45,7 +48,7 @@ $colors: (#171730, #21172f, #15222c);
         width: 100vw;
         height: 100vh;
         display: grid;
-        grid-template-columns: 70% 30%;
+        grid-template-columns: 72% 28%;
         grid-template-rows: 1fr;
     }
 }

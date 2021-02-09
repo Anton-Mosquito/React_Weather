@@ -1,0 +1,27 @@
+.bad-request-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    text-align: center;
+    &__message-main {
+        position: relative;
+        font-size: 1.5em;
+        line-height: 1em;
+        margin-bottom: 20px;
+        color: #15222c;
+        background: #fff;
+        font-weight: 300;
+        padding: 10px 20px;
+        display: inline-block;
+    }
+    &__message-additional {
+        color: #fff;
+        font-size: 1.2em;
+    }
+    &__icon {
+        width: 250px;
+        height: 150px;
+    }
+}

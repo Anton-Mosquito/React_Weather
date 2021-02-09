@@ -3,6 +3,7 @@
 @import "./dataListField/dataListField.module.scss";
 
 .cards {
+    width: 100%;
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 18px 50px repeat(2, 52px);

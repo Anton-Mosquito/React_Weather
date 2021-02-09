@@ -1,4 +1,5 @@
 interface IDataPosition {
+    message: string;
     base: string;
     clouds: ICloud;
     cod: number;

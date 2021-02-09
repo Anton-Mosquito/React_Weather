@@ -12,7 +12,7 @@ type ArrayKey = [string, number]
 
 export const DescriptionList = ({title}: TitleProps) => {
     const {dataPosition} = useContext<ChangeContext>(Context);
-
+    
     let temperatureArray: Array<ArrayKey> = [];
     let sunArray: Array<ArrayKey> = [];
     let windArray : Array<ArrayKey> = [];
@@ -31,7 +31,7 @@ export const DescriptionList = ({title}: TitleProps) => {
             visibilityArray = Object.entries(dataPosition).filter((item)=> item[0] === 'visibility');
         break;
         case 'Wind':
-            windArray = Object.entries(dataPosition.wind)
+            windArray = Object.entries(dataPosition.wind).filter((item)=> item[0] !== 'gust');
         break;
         case 'Cloudiness':
             cloudArray = Object.entries(dataPosition.clouds)

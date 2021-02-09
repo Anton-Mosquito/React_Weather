@@ -1,31 +1,44 @@
-import {ChangeEvent,FormEvent,FormEventHandler, useContext, useState} from 'react';
+import React, { FormEvent,FormEventHandler, useContext, useState} from 'react';
+import { SearchBox } from './searchBox/searchBox';
+import { RadioBox } from './radioBox/radioBox';
+
 import { Context } from "../../../context/context";
-import sprite from "../../../assets/sprite.svg";
-import "./search.module.scss";
 import ChangeContext from '../../../models/context.model';
 
+import "./search.module.scss";
+
+
 export const SearchForm: React.FC = () => {
-    const {updateData} = useContext<ChangeContext>(Context);
+    const {updateData, updateWeatherCards} = useContext<ChangeContext>(Context);
     const [value, setValue] = useState<string>("");
+
+    const [ radioValue , setRadioValue ] = useState([
+        {id : 1, forLabel :'Hourly', forId : 'Hourly' , text: 'Hourly', check : true},
+        {id : 2, forLabel : 'Nearby', forId : 'Nearby', text: 'Nearby', check : false},
+    ]);
+
     
     const submitHandler: FormEventHandler<HTMLFormElement> = (event: FormEvent) => {
-       event.preventDefault();
+        event.preventDefault();
         if (value.trim()) {
             updateData(value);
             setValue(" ");
     }
     };
 
+    const change = (id: number, value: string) => {
+        setRadioValue( radioValue.map(radio => {
+            if (radio.id === id) radio.check = !radio.check
+            else radio.check = !radio.check
+            return radio;
+        }));
+        updateWeatherCards(value)
+    }
+
     return (
     <form className="content__search" onSubmit={submitHandler}>
-        <p className="search__box">
-            <input type="text" className="search__box-input" placeholder="Enter the city name..." onChange={(event: ChangeEvent) => setValue((event.target as HTMLInputElement).value)} value={value}/>
-            <button className="search__box-button" type="submit">
-            <svg className="search__box-icon">
-                <use href={sprite + "#search"}></use>
-            </svg>
-            </button>
-        </p>
+        <SearchBox valueOfField={value} changeValue={setValue}/>
+        <RadioBox info={radioValue} change={change}/>
     </form>
     )
 }
