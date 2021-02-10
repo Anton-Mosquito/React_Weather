@@ -5,7 +5,7 @@ import { DateField } from "./dateField/dateField";
 import { DataListField } from "./dataListField/dataListField";
 import { IMainInfo, IWeather } from "../../../../models/dataCity.model";
 
-import './forecastListItem.module.scss';
+import styles from './forecastListItem.module.scss';
 
 
 type CityProps = {
@@ -14,7 +14,7 @@ type CityProps = {
 
 type ArrayKey = [string, number];
 
-export const ForecastListItem = ({data}: CityProps) => {
+export const ForecastListItem: React.FC<CityProps>= ({data}) => {
     let cityData: Array<ArrayKey> = [];
     let dateData: Array<ArrayKey> = [];
     let imageData: Array<IWeather> = [];
@@ -30,7 +30,7 @@ export const ForecastListItem = ({data}: CityProps) => {
     }
 
     return (
-        <div className="cards">
+        <div className={styles.cards}>
             {cityData.length > 0 ? cityData.map((item: ArrayKey, index: number) =>  <CityField key={index} data={item}/>) : dateData.map((item: ArrayKey, index: number) =>  <DateField key={index} data={item}/>)}
             {imageData.map((item: IWeather, index: number) => <ImageField key={index} data ={item}/>)}
             {temperatureArray.map((item: ArrayKey, index: number) => <DataListField key={index} data={item}/>)}

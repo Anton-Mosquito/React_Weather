@@ -1,11 +1,11 @@
-import './dataListFieldItem.module.scss';
+import styles from './dataListFieldItem.module.scss';
 import sprite from "../../../../../../assets/sprite.svg";
 
 type DataProps = {
     data : [string, number];
 }
 
-export const DataListFieldItem = ({data}: DataProps) => {
+export const DataListFieldItem: React.FC<DataProps> = ({data}) => {
     let nameOfFields: string = '';
     let valueOfField : string = '';
     let rotate: string = '';
@@ -31,9 +31,9 @@ export const DataListFieldItem = ({data}: DataProps) => {
     }
     
     return (
-            <li className="cards__list-item">
+            <li className={styles.item}>
                 <span>{nameOfFields}</span>
-                <span>{nameOfFields === 'Direction' ? <svg className="icon" style={{transform: rotate}}><use href={sprite + "#arrow"}></use></svg> : valueOfField}</span>
+                <span>{nameOfFields === 'Direction' ? <svg className={styles.icon} style={{transform: rotate}}><use href={sprite + "#arrow"}></use></svg> : valueOfField}</span>
             </li>
     )
 }

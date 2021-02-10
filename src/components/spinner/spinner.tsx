@@ -1,7 +1,7 @@
-import './spinner.module.scss'
+import styles from './spinner.module.scss'
 
 export const Spinner = () => {
     return (
-        <div className="spinner"></div>
+        <div className={styles.spinner}></div>
     )
 }

@@ -1,8 +1,8 @@
-import {useContext} from 'react';
+import React, {useContext} from 'react';
 import { Context } from "../../../../../context/context";
 import { DescriptionListItem } from './descriptionListItem/descriptionListItem';
-import "./descriptionList.module.scss";
 import ChangeContext from '../../../../../models/context.model';
+import styles from "./descriptionList.module.scss";
 
 type TitleProps = {
     title : string
@@ -10,7 +10,7 @@ type TitleProps = {
 
 type ArrayKey = [string, number]
 
-export const DescriptionList = ({title}: TitleProps) => {
+export const DescriptionList: React.FC<TitleProps> = ({title}) => {
     const {dataPosition} = useContext<ChangeContext>(Context);
     
     let temperatureArray: Array<ArrayKey> = [];
@@ -40,8 +40,8 @@ export const DescriptionList = ({title}: TitleProps) => {
     }
     
     return (
-        <ul className="list__description">
-            <li className="list__description-title">{title}</li>
+        <ul className={styles.descriptionList}>
+            <li className={styles.title}>{title}</li>
             {temperatureArray?.map(( item: ArrayKey, index:number) => <DescriptionListItem key={index} value={item}/>)}
             {sunArray?.map(( item: ArrayKey, index:number) => <DescriptionListItem key={index} value={item}/>)}
             {visibilityArray?.map(( item: ArrayKey, index:number) => <DescriptionListItem key={index} value={item}/>)}

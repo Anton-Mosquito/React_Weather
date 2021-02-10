@@ -1,11 +1,11 @@
-import './descriptionListItem.module.scss';
+import styles from './descriptionListItem.module.scss';
 import sprite from "../../../../../../assets/sprite.svg";
 
 type ValueProps = {
     value : [string, number]
 }
 
-export const DescriptionListItem = ({value}: ValueProps) => {
+export const DescriptionListItem: React.FC<ValueProps> = ({value}) => {
     let firstFieldName: string;
     let secondFieldName! : string;
     let rotate!: string;
@@ -60,9 +60,9 @@ export const DescriptionListItem = ({value}: ValueProps) => {
     }
 
     return (
-    <li className="list__description-item">
+    <li className={styles.item}>
         <span>{firstFieldName}</span>
-        <span>{firstFieldName === 'Direction' ? <svg className="icon" style={{transform: rotate}}><use href={sprite + "#arrow"}></use></svg> : secondFieldName}</span>
+        <span>{firstFieldName === 'Direction' ? <svg className={styles.icon} style={{transform: rotate}}><use href={sprite + "#arrow"}></use></svg> : secondFieldName}</span>
     </li>
     )
 }

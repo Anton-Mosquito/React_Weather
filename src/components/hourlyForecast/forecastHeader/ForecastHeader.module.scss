@@ -1,13 +1,13 @@
-.content-cards-header {
+.wrapper {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-    h2 {
+    .header {
         font-weight: 700;
         font-size: 2rem;
         color: #e96e50;
     }
-    div {
+    .box {
         .icon {
             width: 108px;
             height: 50px;

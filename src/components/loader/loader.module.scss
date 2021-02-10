@@ -1,4 +1,4 @@
-.cssload-wrap {
+.wrapper {
     align-self: center;
     justify-self: center;
     width: 550px;
@@ -9,7 +9,7 @@
     transform: translate(-50%, -50%);
     perspective: 11000px;
     transform-style: preserve-3d;
-    .cssload-circle {
+    .circle {
         transform-style: preserve-3d;
         box-sizing: border-box;
         opacity: 0;

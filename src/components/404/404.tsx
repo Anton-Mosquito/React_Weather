@@ -1,16 +1,17 @@
-import './404.module.scss';
+import React from 'react';
+import styles from './pageNotFound.module.scss'
 import sprite from "../../assets/sprite.svg";
 
-export const FourHundredFour = () => {
+export const FourHundredFour: React.FC = () => {
     return (
-        <div className="bad-request-container">
-            <h4 className="bad-request-container__message-main">Page not found</h4>
+        <div className={styles.container404}>
+            <h4 className={styles.messageMain}>Page not found</h4>
             <div>
-                <svg className="bad-request-container__icon">
+                <svg className={styles.icon}>
                     <use href={sprite + "#404"}></use>
                 </svg>
             </div>
-            <p className="bad-request-container__message-additional">
+            <p className={styles.messageAdditional}>
                 This city does not exist, check the name of the city and make a second request
             </p>
         </div>

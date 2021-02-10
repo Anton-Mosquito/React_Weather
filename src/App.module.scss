@@ -1,9 +1,3 @@
-@import "./components/currentWeather/currentWeather.module.scss";
-@import "./components/hourlyForecast/hourlyForecast.module.scss";
-@import "./components/loader/loader.module.scss";
-@import "./components/spinner/spinner.module.scss";
-@import "./components/404/404.module.scss";
-
 $particleSize: 20vmin;
 $animationDuration: 6s;
 $amount: 20;
@@ -16,7 +10,7 @@ $colors: (#171730, #21172f, #15222c);
         height: 100vh;
         background: #48484a;
         z-index: 1;
-        span {
+        .span {
             width: $particleSize;
             height: $particleSize;
             border-radius: $particleSize;

@@ -1,6 +1,7 @@
 import {useContext} from 'react';
 import { Context } from "../../../../../context/context";
 import ChangeContext from '../../../../../models/context.model';
+import styles from './temperatuteField.module.scss'
 
 
 export const TemperatuteField: React.FC = () => {
@@ -8,6 +9,6 @@ export const TemperatuteField: React.FC = () => {
     const temp: number | undefined = dataPosition?.main.temp;
     
     return (
-        <p className='temperature'>{temp?.toFixed(1)}&#8451;</p>
+        <p className={styles.temperature}>{temp?.toFixed(1)}&#8451;</p>
     )
 }

@@ -1,11 +1,9 @@
-@import "./descriptionListItem/descriptionListItem.module.scss";
-
-.list__description {
+.descriptionList {
     display: grid;
     grid-column: 100%;
     grid-template-rows: min-content;
     grid-gap: 5px;
-    &-title {
+    .title {
         text-align: center;
         font-weight: 500;
         font-size: 1.2rem;

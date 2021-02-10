@@ -1,6 +1,6 @@
-import './searchBox.module.scss';
 import sprite from "../../../../assets/sprite.svg";
 import { ChangeEvent } from 'react';
+import styles from './searchBox.module.scss';
 
 type DataProps = {
     valueOfField : string;
@@ -9,10 +9,10 @@ type DataProps = {
 
 export const SearchBox = ({valueOfField, changeValue}: DataProps) => {
     return (
-        <p className="search__box">
-        <input type="text" className="search__box-input" placeholder="Enter the city name..." onChange={(event: ChangeEvent) => changeValue((event.target as HTMLInputElement).value)} value={valueOfField}/>
-        <button className="search__box-button" type="submit">
-        <svg className="search__box-icon">
+        <p className={styles.wrapper}>
+        <input type="text" className={styles.input} placeholder="Enter the city name..." onChange={(event: ChangeEvent) => changeValue((event.target as HTMLInputElement).value)} value={valueOfField}/>
+        <button className={styles.button} type="submit">
+        <svg className={styles.icon}>
             <use href={sprite + "#search"}></use>
         </svg>
         </button>

@@ -3,11 +3,11 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-evenly;
-    p {
+    .text {
         font-size: 1.2rem;
         color: #000;
     }
-    img {
+    .image {
         max-width: 100%;
     }
 }

@@ -1,5 +1,7 @@
+import styles from "../../App.module.scss"
+
 export const Dots = () => {
     return (
-        <span></span>
+        <span className={styles.span}></span>
     )
 }

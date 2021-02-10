@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import useCurrentLocation from './hooks/useCurrentLocation';
 import getWeather from "./services/requestCurrentWeather";
 import getWet from './services/requestWeatherByCity';
+import getNearbyCities from './services/requestNearbyCities';
 
 import { CurrentWeather } from './components/currentWeather/currentWeather';
 import { Dots } from './components/dots/dots';
@@ -18,8 +19,8 @@ import { ICoords } from './models/coords.model';
 import { IDataCity } from './models/dataCity.model';
 import IDataPosition from './models/dataPosition.model';
 
-import './App.scss';
-import getNearbyCities from './services/requestNearbyCities';
+import styles from './App.module.scss';
+
 
 export const App: React.FC = () => {
   const { location: currentLocation, error: currentError } = useCurrentLocation(geolocationOptions);
@@ -30,7 +31,7 @@ export const App: React.FC = () => {
   const [trueInfo, setTrueInfo] = React.useState(true);
   const [typeRequset, setTypeRequset] = React.useState('Hourly');
 
-  const lastCoords = useRef(defaultCoords);
+  const lastCoords = useRef<ICoords>(defaultCoords);
   const lastCity = useRef('');
 
   useEffect(() => {
@@ -157,11 +158,11 @@ export const App: React.FC = () => {
 
   return (
     <Context.Provider value={{ dataPosition: dataPosition, updateData: updateData, dataCity: dataCity, loadingCards: loadingCards, updateWeatherCards: updateWeatherCards, loadingMain: loadingMain , typeRequset: typeRequset , trueInfo: trueInfo}}>
-      <section className="wrapper">
-        <div className="background">
+      <section className={styles.wrapper}>
+        <div className={styles.background}>
           {dots().map((item: number) => <Dots key={item} />)}
         </div>
-        <div className="container">
+        <div className={styles.container}>
           <HourlyForecast />
           <CurrentWeather />
         </div>

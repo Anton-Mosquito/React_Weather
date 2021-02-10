@@ -2,15 +2,16 @@ import { useContext } from "react";
 import sprite from "../../../assets/sprite.svg";
 import { Context } from "../../../context/context";
 import ChangeContext from "../../../models/context.model";
+import styles from './ForecastHeader.module.scss'
 
 
 export const ForecastHeader = () => {
     const {typeRequset} = useContext<ChangeContext>(Context);
     return (
-        <header className="content-cards-header">
-            <h2>{typeRequset} forecast</h2>
-            <div>
-                <svg className="icon">
+        <header className={styles.wrapper}>
+            <h2 className={styles.header}>{typeRequset} forecast</h2>
+            <div className={styles.box}>
+                <svg className={styles.icon}>
                     <use href={sprite + "#lady"}></use>
                 </svg>
             </div>

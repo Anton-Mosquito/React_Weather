@@ -5,7 +5,7 @@ import { RadioBox } from './radioBox/radioBox';
 import { Context } from "../../../context/context";
 import ChangeContext from '../../../models/context.model';
 
-import "./search.module.scss";
+import styles from "./search.module.scss";
 
 
 export const SearchForm: React.FC = () => {
@@ -36,7 +36,7 @@ export const SearchForm: React.FC = () => {
     }
 
     return (
-    <form className="content__search" onSubmit={submitHandler}>
+    <form className={styles.search} onSubmit={submitHandler}>
         <SearchBox valueOfField={value} changeValue={setValue}/>
         <RadioBox info={radioValue} change={change}/>
     </form>
