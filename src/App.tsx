@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import useCurrentLocation from './hooks/useCurrentLocation';
 import getWeather from "./services/requestCurrentWeather";
 import getWet from './services/requestWeatherByCity';
@@ -24,137 +24,149 @@ import styles from './App.module.scss';
 
 export const App: React.FC = () => {
   const { location: currentLocation, error: currentError } = useCurrentLocation(geolocationOptions);
-  const [dataPosition, setDataPosition] = React.useState<IDataPosition>();
-  const [dataCity, setDataCity] = React.useState<IDataCity>();
-  const [loadingCards, setLoadingCard] = React.useState(true);
-  const [loadingMain, setLoadingMain] = React.useState(true);
-  const [trueInfo, setTrueInfo] = React.useState(true);
-  const [typeRequset, setTypeRequset] = React.useState('Hourly');
+  const [dataPosition, setDataPosition] = useState<IDataPosition>();
+  const [dataCity, setDataCity] = useState<IDataCity>();
+  const [loadingCards, setLoadingCard] = useState(true);
+  const [loadingMain, setLoadingMain] = useState(true);
+  const [trueInfo, setTrueInfo] = useState(true);
+  const [typeRequset, setTypeRequset] = useState('Hourly');
 
   const lastCoords = useRef<ICoords>(defaultCoords);
   const lastCity = useRef('');
 
-  useEffect(() => {
-    if (currentLocation) {
-      getWeather(currentLocation).then((result: IDataPosition) => {
-        if (result.cod === 200) {
-          setDataPosition(result);
-          setLoadingMain(false);
-          lastCity.current = result.name;
-          getWet(result.name).then((response: IDataCity) => {
-            setDataCity(response)
-            setLoadingCard(false);
-          });
-          
-        }
-        else {
-          console.log('Error' , currentError );
-        }
-      })
-        .catch(e => console.log('Error behind promise!', e));
-      lastCoords.current = currentLocation;
-    } else {
-      getWeather(defaultCoords).then((result: IDataPosition) => {
-        if (result.cod === 200) {
-          setDataPosition(result);
-          setLoadingMain(false);
-          lastCity.current = result.name;
-          getWet(result.name).then((response: IDataCity) => {
-            setDataCity(response)
-            setLoadingCard(false);
-          });
-        } else {
-          console.log('Error' , result.message);
-        }
-      })
-      lastCoords.current = defaultCoords;
-    }
-  }, [currentLocation]);
+
+  const targetLoaction = useMemo(() => {
+    return currentLocation ?? defaultCoords;
+}, [currentLocation]);
+
+const fetchWeather = useCallback(async (location) => {
+  const response = await getWeather(location);
+  if (response?.cod === 200) return response;
+  throw { error: currentError };
+}, [currentError]);
+
+const fetchWet = useCallback(async ({ name }) => {
+  const response = await getWet(name);
+  if (response?.cod === String(200)) return response;
+  throw { error: currentError };
+}, [currentError]);
+
+const fetchNearbyWeather = useCallback(async (location) => {
+  const response = await getNearbyCities(location);
+  if (response?.cod === String(200)) return response;
+  throw { error: currentError };
+}, [currentError]);
+
+const setData = useCallback(({ weather, wet }) => {
+  setDataPosition(weather);
+  setLoadingMain(false);
+  setDataCity(wet);
+  setLoadingCard(false);
+  setTrueInfo(true);
+  lastCity.current = weather.name;
+}, []);
 
 
-  const updateData = (city: string): void => {
-    setLoadingCard(true);
-    setLoadingMain(true);
+const fetchData = useCallback(async (location) => {
+  try {
+      const weather = await fetchWeather(location);
+      const wet = await fetchWet(weather);
+      setData({ weather, wet });
+  } catch(error) {
+      console.log(error);
+  }
+}, [fetchWeather, fetchWet, setData]);
+
+
+useEffect(() => {
+  fetchData(targetLoaction);
+  lastCoords.current = targetLoaction;
+}, [fetchData, targetLoaction]);
+
+
+const showFullLoading = useCallback(()=> {
+  setLoadingCard(true);
+  setLoadingMain(true);
+}, []);
+
+const showPartLoading = useCallback(()=>{
+  setTrueInfo(true);
+  setLoadingCard(true);
+}, [])
+
+const warningRequest = useCallback(()=> {
+  setLoadingMain(false);
+  setLoadingCard(false);
+  setTrueInfo(false);
+}, []);
+
+const setNearbyData = useCallback((result)=> {
+  setTrueInfo(true);
+  setDataPosition(result);
+  setLoadingMain(false);
+  updateWeatherCards('Nearby');
+}, []);
+
+
+const setDataRequestFromButton = useCallback((result)=>{
+  setDataCity(result);
+  setLoadingCard(false);
+}, [])
+
+const updateRequest = useCallback( async (city: string)=>{
+  try {
+    const wet = await fetchWet({name: city});
+    lastCoords.current = wet.city.coord;
+    lastCity.current = wet.city.name;
+    const weather = await fetchWeather(wet.city.coord);
     switch (typeRequset) {
       case 'Hourly':
-        getWet(city).then((response: IDataCity) => {
-          if (response.cod === '200') { 
-            const updatedCoords: ICoords = response.city.coord;
-            lastCoords.current = updatedCoords;
-            lastCity.current = response.city.name;
-            getWeather(updatedCoords).then((result: IDataPosition) => {
-              setTrueInfo(true);
-              setDataPosition(result);
-              setLoadingMain(false);
-              setLoadingCard(false);
-            });
-            setDataCity(response);
-          } else {
-            console.log('Error');
-            setLoadingMain(false);
-            setLoadingCard(false);
-            setTrueInfo(false);
-          }
-        });
-      break;
+        setData({weather, wet});
+        break;
       case 'Nearby':
-        getWet(city).then((response: IDataCity) => {
-          if (response.cod === '200') { 
-            const updatedCoords: ICoords = response.city.coord;
-            lastCoords.current = updatedCoords;
-            lastCity.current = response.city.name;
-            getWeather(updatedCoords).then((result: IDataPosition) => {
-              setTrueInfo(true);
-              setDataPosition(result);
-              setLoadingMain(false);
-              updateWeatherCards('Nearby');
-            });
-          } else {
-            console.log('Error');
-            setLoadingCard(false);
-            setLoadingMain(false);
-            setTrueInfo(false);
-          }
-        });
-      break;
+        setNearbyData(weather);
+        break;
+      default:
+        break;
     }
-  
-  };
+} catch(error) {
+    console.log(error);
+    warningRequest();
+}
+}, [fetchWeather, fetchWet, setData, setNearbyData, typeRequset, warningRequest]);
 
-  const updateWeatherCards = (flag: string): void => {
-    setTrueInfo(true);
-    setLoadingCard(true);
+
+const updateData = useCallback((city: string): void => {
+  showFullLoading();
+  updateRequest(city);
+}, [showFullLoading, updateRequest]);
+
+const updateRequestFromButton = useCallback(async (flag: string)=> {
+  let result = {};
+  try {
     switch (flag) {
       case 'Hourly':
         setTypeRequset('Hourly');
-        getWet(lastCity.current).then((response: IDataCity) => {
-          if (response.cod === '200') {
-            setDataCity(response);
-            setLoadingCard(false);
-          } else {
-            console.log('Error');
-            setLoadingMain(false);
-            setLoadingCard(false);
-            setTrueInfo(false);
-          }
-        });
+        result = await fetchWet({name: lastCity.current});
       break;
       case 'Nearby':
         setTypeRequset('Nearby');
-        getNearbyCities(lastCoords.current).then((response: IDataCity) => {
-          if (response.cod === '200') {
-            setDataCity(response);
-            setLoadingCard(false);
-          } else {
-            console.log('Error');
-            setLoadingMain(false);
-            setLoadingCard(false);
-            setTrueInfo(false);
-          }
-        });
+        result = await fetchNearbyWeather(lastCoords.current);
       break;
+      default:
+        break;
     }
-  }
+    setDataRequestFromButton(result);
+} catch(error) {
+    console.log(error);
+    warningRequest();
+}
+}, [fetchNearbyWeather, fetchWet, setDataRequestFromButton, warningRequest])
+
+const updateWeatherCards = useCallback((flag: string):void => {
+  showPartLoading();
+  updateRequestFromButton(flag)
+}, [showPartLoading, updateRequestFromButton]);
 
   return (
     <Context.Provider value={{ dataPosition: dataPosition, updateData: updateData, dataCity: dataCity, loadingCards: loadingCards, updateWeatherCards: updateWeatherCards, loadingMain: loadingMain , typeRequset: typeRequset , trueInfo: trueInfo}}>

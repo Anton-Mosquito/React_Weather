@@ -7,7 +7,7 @@ const delay = (ms: number) => {
   return new Promise((resolve: any) => setTimeout(() => resolve(), ms));
 };
 
-export default async function getWet(city : string) :Promise<IDataCity>{   
+export default async function getWet(city : string) : Promise<IDataCity>{   
     let result;
       try {
         await delay(3000);

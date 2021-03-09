@@ -1,4 +1,4 @@
-import React, { FormEvent,FormEventHandler, useContext, useState} from 'react';
+import React, { FormEvent,FormEventHandler, useCallback, useContext, useState} from 'react';
 import { SearchBox } from './searchBox/searchBox';
 import { RadioBox } from './radioBox/radioBox';
 
@@ -18,22 +18,22 @@ export const SearchForm: React.FC = () => {
     ]);
 
     
-    const submitHandler: FormEventHandler<HTMLFormElement> = (event: FormEvent) => {
+    const submitHandler: FormEventHandler<HTMLFormElement> = useCallback((event: FormEvent) => {
         event.preventDefault();
         if (value.trim()) {
             updateData(value);
             setValue(" ");
     }
-    };
+    },[updateData, value]);
 
-    const change = (id: number, value: string) => {
+    const change = useCallback((id: number, value: string) => {
         setRadioValue( radioValue.map(radio => {
             if (radio.id === id) radio.check = !radio.check
             else radio.check = !radio.check
             return radio;
         }));
         updateWeatherCards(value)
-    }
+    },[radioValue, updateWeatherCards])
 
     return (
     <form className={styles.search} onSubmit={submitHandler}>
