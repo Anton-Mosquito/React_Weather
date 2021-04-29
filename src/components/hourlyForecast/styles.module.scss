@@ -1,0 +1,11 @@
+.cards {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 10vh 90vh;
+}
+
+@media screen and (max-width: 650px) {
+    .cards {
+        grid-template-rows: 70px 1fr;
+    }
+}

@@ -4,7 +4,7 @@ interface IDataCity {
     city: ICity;
     cod: string;
     cnt: number;
-    list: Array<IMainInfo>;
+    list: IMainInfo[];
     message: number;
 }
 
@@ -27,7 +27,7 @@ interface IMainInfo {
     pop : number;
     sys : ISystemData;
     visibility : number;
-    weather : Array<IWeather>
+    weather : IWeather[];
     wind: IWInd;
 }
 

@@ -11,7 +11,7 @@ interface IDataPosition {
     sys: ISystemData;
     timezone: number;
     visibility: number;
-    weather: Array<IWeather>
+    weather: IWeather[];
     wind: IWInd;
 }
 
