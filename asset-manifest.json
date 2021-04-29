@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "/React_Weather/static/css/main.bd9d6ddb.chunk.css",
-    "main.js": "/React_Weather/static/js/main.df6eeb10.chunk.js",
-    "main.js.map": "/React_Weather/static/js/main.df6eeb10.chunk.js.map",
-    "runtime-main.js": "/React_Weather/static/js/runtime-main.7948d2fc.js",
-    "runtime-main.js.map": "/React_Weather/static/js/runtime-main.7948d2fc.js.map",
-    "static/js/2.5df0d37d.chunk.js": "/React_Weather/static/js/2.5df0d37d.chunk.js",
-    "static/js/2.5df0d37d.chunk.js.map": "/React_Weather/static/js/2.5df0d37d.chunk.js.map",
-    "static/js/3.39eeec66.chunk.js": "/React_Weather/static/js/3.39eeec66.chunk.js",
-    "static/js/3.39eeec66.chunk.js.map": "/React_Weather/static/js/3.39eeec66.chunk.js.map",
+    "main.css": "/React_Weather/static/css/main.6a89ce6e.chunk.css",
+    "main.js": "/React_Weather/static/js/main.bfff1609.chunk.js",
+    "main.js.map": "/React_Weather/static/js/main.bfff1609.chunk.js.map",
+    "runtime-main.js": "/React_Weather/static/js/runtime-main.74ff96d5.js",
+    "runtime-main.js.map": "/React_Weather/static/js/runtime-main.74ff96d5.js.map",
+    "static/js/2.834446e2.chunk.js": "/React_Weather/static/js/2.834446e2.chunk.js",
+    "static/js/2.834446e2.chunk.js.map": "/React_Weather/static/js/2.834446e2.chunk.js.map",
+    "static/js/3.9562b776.chunk.js": "/React_Weather/static/js/3.9562b776.chunk.js",
+    "static/js/3.9562b776.chunk.js.map": "/React_Weather/static/js/3.9562b776.chunk.js.map",
     "index.html": "/React_Weather/index.html",
-    "static/css/main.bd9d6ddb.chunk.css.map": "/React_Weather/static/css/main.bd9d6ddb.chunk.css.map",
-    "static/js/2.5df0d37d.chunk.js.LICENSE.txt": "/React_Weather/static/js/2.5df0d37d.chunk.js.LICENSE.txt",
+    "static/css/main.6a89ce6e.chunk.css.map": "/React_Weather/static/css/main.6a89ce6e.chunk.css.map",
+    "static/js/2.834446e2.chunk.js.LICENSE.txt": "/React_Weather/static/js/2.834446e2.chunk.js.LICENSE.txt",
     "static/media/sprite.bffd5d7d.svg": "/React_Weather/static/media/sprite.bffd5d7d.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.7948d2fc.js",
-    "static/js/2.5df0d37d.chunk.js",
-    "static/css/main.bd9d6ddb.chunk.css",
-    "static/js/main.df6eeb10.chunk.js"
+    "static/js/runtime-main.74ff96d5.js",
+    "static/js/2.834446e2.chunk.js",
+    "static/css/main.6a89ce6e.chunk.css",
+    "static/js/main.bfff1609.chunk.js"
   ]
 }
