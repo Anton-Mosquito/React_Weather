@@ -11,7 +11,9 @@ export const App: React.FC = () => {
   return (
     <Router>
         <Switch>
-          <Route exact path="/" component={Main} />
+          <Route exact path="/">
+            <Main />
+          </Route>
           <Route path="*" component={FourHundredFour} />
         </Switch>
     </Router>
