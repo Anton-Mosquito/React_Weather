@@ -1,17 +1,14 @@
-/* ESLint flat config for ESLint v9+ (refactored) */
-const tsParser = require('@typescript-eslint/parser');
-const tsPlugin = require('@typescript-eslint/eslint-plugin');
-const reactPlugin = require('eslint-plugin-react');
-const reactHooksPlugin = require('eslint-plugin-react-hooks');
-const prettierPlugin = require('eslint-plugin-prettier');
+import { defineConfig } from 'eslint/config';
+import tsParser from '@typescript-eslint/parser';
+import tsPlugin from '@typescript-eslint/eslint-plugin';
+import reactPlugin from 'eslint-plugin-react';
+import reactHooksPlugin from 'eslint-plugin-react-hooks';
+import prettierPlugin from 'eslint-plugin-prettier';
 
-module.exports = [
-  // Global ignores
+export default defineConfig([
   {
     ignores: ['node_modules/**', 'build/**', 'dist/**', 'public/**', '.cache/**', '.git/**'],
   },
-
-  // Apply to JS/TS files
   {
     files: ['**/*.{ts,tsx,js,jsx}'],
     languageOptions: {
@@ -22,28 +19,19 @@ module.exports = [
         project: './tsconfig.json'
       }
     },
-    linterOptions: {
-      reportUnusedDisableDirectives: true
-    },
+    linterOptions: { reportUnusedDisableDirectives: true },
     plugins: {
       '@typescript-eslint': tsPlugin,
       react: reactPlugin,
       'react-hooks': reactHooksPlugin,
       prettier: prettierPlugin
     },
-    settings: {
-      react: { version: 'detect' }
-    },
+    settings: { react: { version: 'detect' } },
     rules: {
-      // Formatting
       'prettier/prettier': 'error',
-
-      // React
       'react/prop-types': 'off',
       'react/react-in-jsx-scope': 'off',
-
-      // TypeScript
       '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }]
     }
   }
-];
+]);
