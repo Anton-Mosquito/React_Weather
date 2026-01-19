@@ -8,7 +8,7 @@ export const FourHundredFour: FC = () => {
       <h4 className={styles.messageMain}>Page not found</h4>
       <div>
         <svg className={styles.icon}>
-          <use href={sprite + '#404'}></use>
+          <use href={`${sprite}#404`} />
         </svg>
       </div>
       <p className={styles.messageAdditional}>
