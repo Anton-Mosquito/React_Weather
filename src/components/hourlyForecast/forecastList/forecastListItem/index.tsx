@@ -1,4 +1,4 @@
-import React from 'react';
+import type { FC } from 'react';
 import { CityField } from './cityField';
 import { ImageField } from './imageField';
 import { DateField } from './dateField';
@@ -13,7 +13,7 @@ type CityProps = {
 
 type ArrayKey = [string, number];
 
-export const ForecastListItem: React.FC<CityProps> = ({ data }) => {
+export const ForecastListItem: FC<CityProps> = ({ data }) => {
   let cityData: ArrayKey[] = [];
   let dateData: ArrayKey[] = [];
   let imageData: IWeather[] = [];

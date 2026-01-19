@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { Context } from '../../../context';
 
 import { ForecastListItem } from './forecastListItem';
@@ -10,12 +10,13 @@ import { IMainInfo } from '../../../models/dataCity.model';
 
 import styles from './styles.module.scss';
 
-export const ForecastList: React.FC = () => {
+export const ForecastList = () => {
   const { dataCity, loadingCards, trueInfo } =
     useContext<ChangeContext>(Context);
-  let quantityOfCards: IMainInfo[] = [];
+  const quantityOfCards: IMainInfo[] = dataCity
+    ? dataCity.list.slice(0, 9)
+    : [];
 
-  if (dataCity) quantityOfCards = dataCity.list.slice(0, 9);
   return (
     <div className={styles.listMain}>
       {loadingCards ? (

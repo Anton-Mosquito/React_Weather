@@ -1,10 +1,5 @@
-import React, {
-  FormEvent,
-  FormEventHandler,
-  useCallback,
-  useContext,
-  useState,
-} from 'react';
+import type { FormEvent, FormEventHandler } from 'react';
+import { useCallback, useContext, useState } from 'react';
 import { SearchBox } from './searchBox';
 import { RadioBox } from './radioBox';
 
@@ -13,7 +8,7 @@ import ChangeContext from '../../../models/context.model';
 
 import styles from './styles.module.scss';
 
-export const SearchForm: React.FC = () => {
+export const SearchForm = () => {
   const { updateData, updateWeatherCards } = useContext<ChangeContext>(Context);
   const [value, setValue] = useState<string>('');
 

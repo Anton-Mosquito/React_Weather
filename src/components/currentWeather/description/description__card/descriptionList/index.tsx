@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { Context } from '../../../../../context';
 import { DescriptionListItem } from './descriptionListItem';
 import ChangeContext from '../../../../../models/context.model';
@@ -10,7 +10,7 @@ type TitleProps = {
 
 type ArrayKey = [string, number];
 
-export const DescriptionList: React.FC<TitleProps> = ({ title }) => {
+export const DescriptionList = ({ title }: TitleProps) => {
   const { dataPosition } = useContext<ChangeContext>(Context);
   let temperatureArray: ArrayKey[] = [];
   let sunArray: ArrayKey[] = [];

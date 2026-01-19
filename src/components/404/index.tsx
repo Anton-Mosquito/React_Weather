@@ -1,8 +1,8 @@
-import React from 'react';
+import type { FC } from 'react';
 import styles from './styles.module.scss';
 import sprite from '../../assets/sprite.svg';
 
-export const FourHundredFour: React.FC = () => {
+export const FourHundredFour: FC = () => {
   return (
     <div className={styles.container404}>
       <h4 className={styles.messageMain}>Page not found</h4>

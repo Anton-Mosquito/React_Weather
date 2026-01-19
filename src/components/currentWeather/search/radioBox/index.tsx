@@ -1,4 +1,3 @@
-import React from 'react';
 import { IRadio } from '../../../../models/radio.model';
 import { RadioItem } from './radioItems';
 import styles from './styles.module.scss';

@@ -1,10 +1,4 @@
-import React, {
-  useState,
-  useEffect,
-  useRef,
-  useMemo,
-  useCallback,
-} from 'react';
+import { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import useCurrentLocation from '../../hooks';
 import getWeather from '../../services/requestCurrentWeather';
 import getWet from '../../services/requestWeatherByCity';
@@ -26,7 +20,7 @@ import IDataPosition from '../../models/dataPosition.model';
 
 import styles from './styles.module.scss';
 
-export const Main: React.FC = () => {
+export const Main = () => {
   const { location: currentLocation, error: currentError } =
     useCurrentLocation(geolocationOptions);
   const [dataPosition, setDataPosition] = useState<IDataPosition>();

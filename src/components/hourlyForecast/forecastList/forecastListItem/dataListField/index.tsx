@@ -1,4 +1,4 @@
-import React from 'react';
+import type { FC } from 'react';
 import { DataListFieldItem } from './dataListFieldItem';
 import styles from './styles.module.scss';
 
@@ -8,7 +8,7 @@ type DataProps = {
 
 type ArrayKey = [string, number];
 
-export const DataListField: React.FC<DataProps> = ({ data }) => {
+export const DataListField: FC<DataProps> = ({ data }) => {
   let innerHeaderField: string;
   let innerItemFieldArray: ArrayKey[] = [];
 

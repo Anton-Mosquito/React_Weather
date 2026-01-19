@@ -1,7 +1,7 @@
-import React from 'react';
+import { createContext } from 'react';
 import ChangeContext from '../models/context.model';
 
-export const Context = React.createContext<ChangeContext>({
+export const Context = createContext<ChangeContext>({
   dataCity: undefined,
   dataPosition: undefined,
   updateData: (value) => console.warn('default'),
