@@ -20,7 +20,9 @@
     height: 100%;
     border-radius: 213px;
     border: 11px solid #171730;
-    box-shadow: 0 0 106px #21172f, inset 0 0 106px #21172f;
+    box-shadow:
+      0 0 106px #21172f,
+      inset 0 0 106px #21172f;
   }
 
   &:after {
