@@ -46,6 +46,14 @@ export const weatherApi = createApi({
       },
     }),
 
+    getNearbyCities: builder.query<Weather[], { lat: number; lon: number; cnt?: number }>({
+      query: ({ lat, lon, cnt = 9 }) => ({ url: '/find', params: { lat, lon, cnt, appid: API_KEY } }),
+      transformResponse: (response: OpenWeatherFindResponse) => {
+        const cleaned = cleanApiPayload(response as any) as OpenWeatherFindResponse;
+        return mapFindResponseToWeathers(cleaned);
+      },
+    }),
+
     getWeather: builder.query<Weather, { lat: number; lon: number }>({
       query: ({ lat, lon }) => ({
         url: '/weather',
@@ -64,7 +72,9 @@ export const weatherApi = createApi({
 export const {
   useGetCurrentWeatherQuery,
   useGetWeatherByCityQuery,
+  useGetNearbyCitiesQuery,
   useGetWeatherQuery,
   useLazyGetWeatherByCityQuery,
   useLazyGetWeatherQuery,
+  useLazyGetNearbyCitiesQuery,
 } = weatherApi;

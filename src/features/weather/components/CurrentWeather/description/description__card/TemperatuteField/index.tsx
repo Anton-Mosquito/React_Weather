@@ -1,10 +1,13 @@
-import { useContext } from 'react';
-import { Context } from '@/context';
-import { AppContext } from '@/types';
+import { /* useContext */ } from 'react';
+import useAppContext from '@/context';
 import styles from './styles.module.scss';
+import type { ForecastItem } from '@/types';
 
 export const TemperatuteField: React.FC = () => {
-  const { dataPosition } = useContext<AppContext>(Context);
-  const temp: number | undefined = dataPosition?.main?.temp;
-  return <p className={styles.temperature}>{temp?.toFixed(1)}&#8451;</p>;
+  const { dataPosition } = useAppContext();
+  const current = dataPosition?.current as ForecastItem | undefined;
+  const rawTemp = current?.temp;
+  const tempNumber: number | undefined =
+    typeof rawTemp === 'number' ? rawTemp : (rawTemp && (rawTemp as any).day) ?? undefined;
+  return <p className={styles.temperature}>{tempNumber !== undefined ? tempNumber.toFixed(1) : ''}&#8451;</p>;
 };

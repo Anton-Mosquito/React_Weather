@@ -1,12 +1,13 @@
-import { useContext } from 'react';
-import { Context } from '@/context';
-import { AppContext } from '@/types';
+import { /* useContext */ } from 'react';
+import useAppContext from '@/context';
 import styles from './styles.module.scss';
+import type { ForecastItem } from '@/types';
 
 export const ImageField: React.FC = () => {
-  const { dataPosition } = useContext<AppContext>(Context);
-  const icon: string | undefined = dataPosition?.weather?.[0]?.icon;
-  const text: string | undefined = dataPosition?.weather?.[0]?.main;
+  const { dataPosition } = useAppContext();
+  const current = dataPosition?.current as ForecastItem | undefined;
+  const icon: string | undefined = current?.weather?.[0]?.icon;
+  const text: string | undefined = current?.weather?.[0]?.main;
   return (
     <div className={styles.wrapper}>
       <p className={styles.text}>{text}</p>

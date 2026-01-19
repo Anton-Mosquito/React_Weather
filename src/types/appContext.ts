@@ -1,11 +1,6 @@
-import type {
-  OpenWeatherFindResponse,
-  OpenWeatherWeatherResponse,
-} from './api/legacyEndpoints';
-
 export interface AppContext {
-  dataCity?: OpenWeatherFindResponse;
-  dataPosition?: OpenWeatherWeatherResponse;
+  dataCity?: import('./domain/weather').Weather[];
+  dataPosition?: import('./domain/weather').Weather;
   updateData: (value: string) => void;
   loadingCards: boolean;
   updateWeatherCards: (value: string) => void;

@@ -1,11 +1,10 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import sprite from '@/assets/sprite.svg';
-import { Context } from '@/context';
-import { AppContext } from '@/types';
+import useAppContext from '@/context';
 import styles from './styles.module.scss';
 
 const ForecastHeader: React.FC = () => {
-  const { typeRequset } = useContext<AppContext>(Context);
+  const { typeRequset } = useAppContext();
   return (
     <header className={styles.wrapper}>
       <h2 className={styles.header}>{typeRequset} forecast</h2>

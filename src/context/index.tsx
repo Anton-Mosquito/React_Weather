@@ -1,13 +1,40 @@
-import { createContext } from 'react';
-import { AppContext } from '../types';
+import { useCallback } from 'react';
+import { useAppDispatch, useAppSelector } from '@/hooks/redux';
+import type { AppContext } from '../types/appContext';
+import {
+  setDataCity,
+  setDataPosition,
+  setLoadingCards,
+  setLoadingMain,
+  setTypeRequest,
+  setTrueInfo,
+} from '@/store/slices/appSlice';
 
-export const Context = createContext<AppContext>({
-  dataCity: undefined,
-  dataPosition: undefined,
-  updateData: (_value) => console.warn('default'),
-  loadingCards: false,
-  updateWeatherCards: (_value) => console.warn('default'),
-  loadingMain: false,
-  typeRequset: '',
-  trueInfo: true,
-});
+// Hook that mirrors the previous `AppContext` shape but backed by Redux.
+export const useAppContext = (): AppContext => {
+  const dispatch = useAppDispatch();
+  const state = useAppSelector((s) => s.app);
+
+  const updateData = useCallback(
+    (value: string) => dispatch(setTypeRequest(value)),
+    [dispatch]
+  );
+
+  const updateWeatherCards = useCallback(
+    (value: string) => dispatch(setTypeRequest(value)),
+    [dispatch]
+  );
+
+  return {
+    dataCity: state.dataCity,
+    dataPosition: state.dataPosition,
+    updateData,
+    loadingCards: state.loadingCards,
+    updateWeatherCards,
+    loadingMain: state.loadingMain,
+    typeRequset: state.typeRequset,
+    trueInfo: state.trueInfo,
+  };
+};
+
+export default useAppContext;

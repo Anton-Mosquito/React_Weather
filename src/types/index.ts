@@ -5,6 +5,5 @@ export * from './api/legacyEndpoints';
 export * from './store/weatherSlice';
 export * from './events';
 export * from './ui/props';
-export * from '../styles/theme';
 export * from './geo';
 export * from './appContext';

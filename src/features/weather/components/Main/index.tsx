@@ -1,4 +1,4 @@
-import React, {
+import {
   useState,
   useEffect,
   useRef,
@@ -6,9 +6,6 @@ import React, {
   useCallback,
 } from 'react';
 import { useCurrentLocation } from '@/hooks';
-import getWeather from '@/services/requestCurrentWeather';
-import getWet from '@/services/requestWeatherByCity';
-import getNearbyCities from '@/services/requestNearbyCities';
 
 import { CurrentWeather } from '@features/weather/components/CurrentWeather';
 import Dots from '@features/weather/components/Dots';
@@ -18,112 +15,73 @@ import { geolocationOptions } from '@/constant/option';
 import { defaultCoords } from '@/constant/defaultCoords';
 import { dots } from '@/constant/quantityOfDots';
 
-import { Context } from '@/context';
-
+import { Coordinates, OpenWeatherWeatherResponse, Weather } from '@/types';
+import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import {
-  Coordinates,
-  OpenWeatherFindResponse,
-  OpenWeatherWeatherResponse,
-} from '@/types';
+  setDataCity,
+  setDataPosition,
+  setLoadingCards,
+  setLoadingMain,
+  setTypeRequest,
+  setTrueInfo,
+} from '@/store/slices/appSlice';
 import {
   useLazyGetWeatherByCityQuery,
   useLazyGetWeatherQuery,
+  useLazyGetNearbyCitiesQuery,
 } from '@/store/services/weatherApi.service';
 
 import styles from './styles.module.scss';
 
-export const Main: React.FC = () => {
-  const { location: currentLocation, error: currentError } =
-    useCurrentLocation(geolocationOptions);
-  const [dataPosition, setDataPosition] =
-    useState<OpenWeatherWeatherResponse>();
-  const [dataCity, setDataCity] = useState<OpenWeatherFindResponse>();
-  const [loadingCards, setLoadingCard] = useState(true);
-  const [loadingMain, setLoadingMain] = useState(true);
-  const [trueInfo, setTrueInfo] = useState(true);
-  const [typeRequset, setTypeRequset] = useState('Hourly');
+export const Main = () => {
+  const { location: currentLocation } = useCurrentLocation(geolocationOptions);
+  const dispatch = useAppDispatch();
+  const { dataPosition, dataCity, loadingCards, loadingMain, typeRequset, trueInfo } = useAppSelector(
+    (s) => s.app
+  );
 
   const lastCoords = useRef<Coordinates>(defaultCoords);
   const lastCity = useRef('');
 
-  const targetLoaction = useMemo(() => {
-    return currentLocation ?? defaultCoords;
-  }, [currentLocation]);
+  const targetLoaction = useMemo(() => currentLocation ?? defaultCoords, [currentLocation]);
 
   const [triggerGetWeatherByCity] = useLazyGetWeatherByCityQuery();
   const [triggerGetWeather] = useLazyGetWeatherQuery();
-
-  const fetchWeather = useCallback(
-    async (location: Coordinates) => {
-      try {
-        // try RTK Query lazy trigger first
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        const res = await triggerGetWeather({
-          lat: location.lat,
-          lon: location.lon,
-        });
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        const data = res?.data ?? res;
-        if (data) return data;
-      } catch (e) {
-        // continue to fallback
-      }
-
-      // fallback to legacy service
-      const response = await getWeather(location);
-      if (response?.cod === 200) return response;
-      throw new Error(String(currentError));
-    },
-    [currentError, triggerGetWeather]
-  );
-
-  const fetchWet = useCallback(
-    async ({ name }: { name?: string }) => {
-      const response = await getWet(name ?? '');
-      if (response?.cod === String(200)) return response;
-      throw new Error(String(currentError));
-    },
-    [currentError]
-  );
-
-  const fetchNearbyWeather = useCallback(
-    async (location: Coordinates) => {
-      const response = await getNearbyCities(location);
-      if (response?.cod === String(200)) return response;
-      throw new Error(String(currentError));
-    },
-    [currentError]
-  );
+  const [triggerGetNearbyCities] = useLazyGetNearbyCitiesQuery();
 
   const setData = useCallback(
-    ({ weather, wet }: { weather: any; wet: any }) => {
-      setDataPosition(weather);
-      setLoadingMain(false);
-      setDataCity(wet);
-      setLoadingCard(false);
-      setTrueInfo(true);
-      lastCity.current = weather.name ?? '';
+    ({ weather, wet }: { weather: Weather; wet: Weather[] }) => {
+      dispatch(setDataPosition(weather));
+      dispatch(setLoadingMain(false));
+      dispatch(setDataCity(wet));
+      dispatch(setLoadingCards(false));
+      dispatch(setTrueInfo(true));
+      lastCity.current = weather?.city?.name ?? '';
     },
-    []
+    [dispatch]
   );
 
   const fetchData = useCallback(
     async (location: Coordinates) => {
       try {
-        const weather = await fetchWeather(location);
-        const w: any = weather;
-        const cityName = (w && (w.name ?? w.city?.name)) || '';
-        const wet = await fetchWet(cityName);
+        // fetch weather (unwrap to get typed data)
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        const weather = await triggerGetWeather({ lat: location.lat, lon: location.lon }).unwrap();
+
+        const cityName = weather?.city?.name ?? '';
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        const wet = await triggerGetWeatherByCity(cityName).unwrap();
+
         setData({ weather, wet });
       } catch (error) {
-        // keep legacy behaviour
+        // keep legacy behaviour: show nothing but don't crash
         // eslint-disable-next-line no-console
         console.log(error);
       }
     },
-    [fetchWeather, fetchWet, setData]
+    [setData, triggerGetWeather, triggerGetWeatherByCity]
   );
 
   useEffect(() => {
@@ -132,56 +90,41 @@ export const Main: React.FC = () => {
   }, [fetchData, targetLoaction]);
 
   const showFullLoading = useCallback(() => {
-    setLoadingCard(true);
-    setLoadingMain(true);
-  }, []);
+    dispatch(setLoadingCards(true));
+    dispatch(setLoadingMain(true));
+  }, [dispatch]);
 
   const showPartLoading = useCallback(() => {
-    setTrueInfo(true);
-    setLoadingCard(true);
-  }, []);
+    dispatch(setTrueInfo(true));
+    dispatch(setLoadingCards(true));
+  }, [dispatch]);
 
   const warningRequest = useCallback(() => {
-    setLoadingMain(false);
-    setLoadingCard(false);
-    setTrueInfo(false);
-  }, []);
+    dispatch(setLoadingMain(false));
+    dispatch(setLoadingCards(false));
+    dispatch(setTrueInfo(false));
+  }, [dispatch]);
 
-  const setDataRequestFromButton = useCallback((result: any) => {
-    setDataCity(result);
-    setLoadingCard(false);
-  }, []);
+  const setDataRequestFromButton = useCallback((result: Weather[] = []) => {
+    dispatch(setDataCity(result));
+    dispatch(setLoadingCards(false));
+  }, [dispatch]);
 
   const updateRequestFromButton = useCallback(
     async (flag: string) => {
-      let result = {};
+      let result: Weather[] = [];
       try {
         switch (flag) {
-          case 'Hourly':
-            setTypeRequset('Hourly');
-            // use RTK Query lazy endpoint for city search
-            try {
-              // trigger returns a promise that may contain { data }
-              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              // @ts-ignore
-              const res = await triggerGetWeatherByCity(lastCity.current);
-              // prefer res.data if present
-              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              // @ts-ignore
-              result = res?.data ?? res;
-            } catch (e) {
-              // fallback to legacy service
-              // eslint-disable-next-line no-console
-              console.log('RTK query failed, falling back', e);
-              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              // @ts-ignore
-              result = await fetchWet({ name: lastCity.current });
-            }
+          case 'Hourly': {
+            dispatch(setTypeRequest('Hourly'));
+            result = await triggerGetWeatherByCity(lastCity.current).unwrap();
             break;
-          case 'Nearby':
-            setTypeRequset('Nearby');
-            result = await fetchNearbyWeather(lastCoords.current);
+          }
+          case 'Nearby': {
+            dispatch(setTypeRequest('Nearby'));
+            result = await triggerGetNearbyCities({ lat: lastCoords.current.lat, lon: lastCoords.current.lon }).unwrap();
             break;
+          }
           default:
             break;
         }
@@ -192,7 +135,7 @@ export const Main: React.FC = () => {
         warningRequest();
       }
     },
-    [fetchNearbyWeather, fetchWet, setDataRequestFromButton, warningRequest]
+    [setDataRequestFromButton, warningRequest, triggerGetWeatherByCity, triggerGetNearbyCities]
   );
 
   const updateWeatherCards = useCallback(
@@ -204,60 +147,33 @@ export const Main: React.FC = () => {
   );
 
   const setNearbyData = useCallback(
-    (result: any) => {
-      setTrueInfo(true);
-      setDataPosition(result);
-      setLoadingMain(false);
+    (result: Weather) => {
+      dispatch(setTrueInfo(true));
+      dispatch(setDataPosition(result));
+      dispatch(setLoadingMain(false));
       updateWeatherCards('Nearby');
     },
-    [updateWeatherCards]
+    [dispatch, updateWeatherCards]
   );
 
   const updateRequest = useCallback(
     async (city: string) => {
       try {
-        // Trigger city search via RTK Query
-        let wet: any = null;
-        try {
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          const r = await triggerGetWeatherByCity(city);
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          wet = r?.data ?? r;
-        } catch (e) {
-          // fallback to legacy
-          // eslint-disable-next-line no-console
-          console.log('city trigger failed, fallback', e);
-          wet = await fetchWet({ name: city });
-        }
+        // city search
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        const wet: Weather[] = await triggerGetWeatherByCity(city).unwrap();
 
-        const coord = wet?.city?.coord ?? wet?.list?.[0]?.coord ?? null;
-        if (!coord) {
-          throw new Error('No coordinates from city search');
-        }
+        const coord = wet?.[0]?.city?.coord ?? null;
+        if (!coord) throw new Error('No coordinates from city search');
+
         lastCoords.current = coord;
-        lastCity.current =
-          wet.city?.name ?? wet?.list?.[0]?.name ?? lastCity.current;
+        lastCity.current = wet?.[0]?.city?.name ?? lastCity.current;
 
-        // Trigger weather fetch via RTK Query
-        let weather: any = null;
-        try {
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          const r2 = await triggerGetWeather({
-            lat: coord.lat,
-            lon: coord.lon,
-          });
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          weather = r2?.data ?? r2;
-        } catch (e) {
-          // fallback to legacy
-          // eslint-disable-next-line no-console
-          console.log('weather trigger failed, fallback', e);
-          weather = await fetchWeather(coord);
-        }
+        // fetch weather
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        const weather = await triggerGetWeather({ lat: coord.lat, lon: coord.lon }).unwrap();
 
         switch (typeRequset) {
           case 'Hourly':
@@ -275,16 +191,7 @@ export const Main: React.FC = () => {
         warningRequest();
       }
     },
-    [
-      fetchWeather,
-      fetchWet,
-      setData,
-      setNearbyData,
-      typeRequset,
-      warningRequest,
-      triggerGetWeatherByCity,
-      triggerGetWeather,
-    ]
+    [setData, setNearbyData, typeRequset, warningRequest, triggerGetWeatherByCity, triggerGetWeather]
   );
 
   const updateData = useCallback(
@@ -296,30 +203,17 @@ export const Main: React.FC = () => {
   );
 
   return (
-    <Context.Provider
-      value={{
-        dataPosition,
-        updateData,
-        dataCity,
-        loadingCards,
-        updateWeatherCards,
-        loadingMain,
-        typeRequset,
-        trueInfo,
-      }}
-    >
-      <section className={styles.wrapper}>
-        <div className={styles.background}>
-          {dots().map((item: number) => (
-            <Dots key={item} />
-          ))}
-        </div>
-        <div className={styles.container}>
-          <HourlyForecast />
-          <CurrentWeather />
-        </div>
-      </section>
-    </Context.Provider>
+    <section className={styles.wrapper}>
+      <div className={styles.background}>
+        {dots().map((item: number) => (
+          <Dots key={item} />
+        ))}
+      </div>
+      <div className={styles.container}>
+        <HourlyForecast />
+        <CurrentWeather />
+      </div>
+    </section>
   );
 };
 

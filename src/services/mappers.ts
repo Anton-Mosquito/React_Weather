@@ -48,23 +48,13 @@ const mapCurrentToForecast = (c: OpenWeatherCurrent): ForecastItem => ({
   uvi: c.uvi,
   clouds: c.clouds,
   visibility: c.visibility,
-  wind: mapWind(
-    (c as any).wind_speed ?? undefined,
-    (c as any).wind_deg ?? undefined,
-    (c as any).wind_gust ?? undefined
-  ),
+  wind: mapWind(c.wind_speed ?? undefined, c.wind_deg ?? undefined, c.wind_gust ?? undefined),
   weather: mapConditions(c.weather),
-  pop: (c as any).pop,
-  rain: (c as any).rain
-    ? ((typeof (c as any).rain === 'object'
-        ? ((c as any).rain['1h'] ?? (c as any).rain)
-        : (c as any).rain) as any)
+  pop: (c as any).pop ?? undefined,
+  rain: c.rain
+    ? (typeof c.rain === 'object' ? (c.rain['1h'] ?? c.rain) : c.rain)
     : undefined,
-  snow: (c as any).snow
-    ? ((typeof (c as any).snow === 'object'
-        ? ((c as any).snow['1h'] ?? (c as any).snow)
-        : (c as any).snow) as any)
-    : undefined,
+  snow: c.snow ? (typeof c.snow === 'object' ? (c.snow['1h'] ?? c.snow) : c.snow) : undefined,
 });
 
 const mapHourlyToForecast = (h: OpenWeatherHourlyItem): ForecastItem => ({
@@ -77,23 +67,11 @@ const mapHourlyToForecast = (h: OpenWeatherHourlyItem): ForecastItem => ({
   uvi: h.uvi,
   clouds: h.clouds,
   visibility: h.visibility,
-  wind: mapWind(
-    (h as any).wind_speed ?? undefined,
-    (h as any).wind_deg ?? undefined,
-    (h as any).wind_gust ?? undefined
-  ),
+  wind: mapWind(h.wind_speed ?? undefined, h.wind_deg ?? undefined, h.wind_gust ?? undefined),
   weather: mapConditions(h.weather),
   pop: h.pop,
-  rain: (h as any).rain
-    ? ((typeof (h as any).rain === 'object'
-        ? ((h as any).rain['1h'] ?? (h as any).rain)
-        : (h as any).rain) as any)
-    : undefined,
-  snow: (h as any).snow
-    ? ((typeof (h as any).snow === 'object'
-        ? ((h as any).snow['1h'] ?? (h as any).snow)
-        : (h as any).snow) as any)
-    : undefined,
+  rain: h.rain ? (typeof h.rain === 'object' ? (h.rain['1h'] ?? h.rain) : h.rain) : undefined,
+  snow: h.snow ? (typeof h.snow === 'object' ? (h.snow['1h'] ?? h.snow) : h.snow) : undefined,
 });
 
 const mapDailyToForecast = (d: OpenWeatherDaily): ForecastItem => {
@@ -107,11 +85,7 @@ const mapDailyToForecast = (d: OpenWeatherDaily): ForecastItem => {
     dew_point: d.dew_point,
     uvi: d.uvi,
     clouds: d.clouds,
-    wind: mapWind(
-      (d as any).wind_speed ?? undefined,
-      (d as any).wind_deg ?? undefined,
-      undefined
-    ),
+    wind: mapWind(d.wind_speed ?? undefined, d.wind_deg ?? undefined, undefined),
     weather: mapConditions(d.weather),
     pop: d.pop,
     rain: d.rain,

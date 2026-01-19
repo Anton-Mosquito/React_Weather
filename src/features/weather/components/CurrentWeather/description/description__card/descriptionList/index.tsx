@@ -1,71 +1,62 @@
-import { useContext } from 'react';
-import { Context } from '@/context';
+import { /* useContext */ } from 'react';
+import useAppContext from '@/context';
 import { DescriptionListItem } from './descriptionListItem';
-import { AppContext } from '@/types';
 import styles from './styles.module.scss';
+import type { ForecastItem } from '@/types';
 
-type TitleProps = {
-  title: string;
-};
-
+type TitleProps = { title: string };
 type ArrayKey = [string, any];
 
 export const DescriptionList = ({ title }: TitleProps) => {
-  const { dataPosition } = useContext<AppContext>(Context);
+  const { dataPosition } = useAppContext();
   let temperatureArray: ArrayKey[] = [];
   let sunArray: ArrayKey[] = [];
   let windArray: ArrayKey[] = [];
   let visibilityArray: ArrayKey[] = [];
   let cloudArray: ArrayKey[] = [];
 
-  if (dataPosition) {
+  const current = dataPosition?.current as ForecastItem | undefined;
+
+  if (current) {
     switch (title) {
       case 'Temperature parameters':
-        temperatureArray = Object.entries(dataPosition.main ?? {}).filter(
-          (item) =>
-            item[0] !== 'temp' &&
-            item[0] !== 'sea_level' &&
-            item[0] !== 'grnd_level' &&
-            item[0] !== 'pressure'
+        temperatureArray = Object.entries(current ?? {}).filter(
+          (item) => item[0] !== 'temp' && item[0] !== 'weather' && item[0] !== 'dt'
         ) as ArrayKey[];
         break;
       case 'Sunrise & Sunset data':
-        sunArray = Object.entries(dataPosition.sys ?? {}).filter(
-          (item) =>
-            item[0] !== 'country' && item[0] !== 'id' && item[0] !== 'type'
-        ) as ArrayKey[];
+        sunArray = current && 'sunrise' in (current as any) ? [[ 'sunrise', (current as any).sunrise ], ['sunset',(current as any).sunset]] : [];
         break;
       case 'Visibility':
-        visibilityArray = Object.entries(dataPosition ?? {}).filter(
-          (item) => item[0] === 'visibility'
+        visibilityArray = Object.entries({ visibility: (current as any)?.visibility }).filter(
+          (item) => item[1] !== undefined
         ) as ArrayKey[];
         break;
       case 'Wind':
-        windArray = Object.entries(dataPosition.wind ?? {}).filter(
-          (item) => item[0] !== 'gust'
-        ) as ArrayKey[];
+        windArray = Object.entries((current as any)?.wind ?? {}).filter((item) => item[0] !== 'gust') as ArrayKey[];
         break;
       case 'Cloudiness':
-        cloudArray = Object.entries(dataPosition.clouds ?? {}) as ArrayKey[];
+        cloudArray = Object.entries({ clouds: (current as any)?.clouds ?? undefined }).filter(([,v])=>v!==undefined) as ArrayKey[];
         break;
     }
   }
+
   return (
     <ul className={styles.descriptionList}>
       <li className={styles.title}>{title}</li>
-      {temperatureArray?.map((item: ArrayKey, index: number) => (
+      {temperatureArray.map((item: ArrayKey, index: number) => (
         <DescriptionListItem key={index} value={item} />
       ))}
-      {sunArray?.map((item: ArrayKey, index: number) => (
+      {sunArray.map((item: ArrayKey, index: number) => (
         <DescriptionListItem key={index} value={item} />
       ))}
-      {visibilityArray?.map((item: ArrayKey, index: number) => (
+      {visibilityArray.map((item: ArrayKey, index: number) => (
         <DescriptionListItem key={index} value={item} />
       ))}
-      {windArray?.map((item: ArrayKey, index: number) => (
+      {windArray.map((item: ArrayKey, index: number) => (
         <DescriptionListItem key={index} value={item} />
       ))}
-      {cloudArray?.map((item: ArrayKey, index: number) => (
+      {cloudArray.map((item: ArrayKey, index: number) => (
         <DescriptionListItem key={index} value={item} />
       ))}
     </ul>

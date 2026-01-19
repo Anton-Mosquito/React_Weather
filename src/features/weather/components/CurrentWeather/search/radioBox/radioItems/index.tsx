@@ -1,6 +1,4 @@
-import { useContext } from 'react';
-import { Context } from '@/context';
-import { AppContext } from '@/types';
+import useAppContext from '@/context';
 import styles from './styles.module.scss';
 import type { RadioItemProps } from '@features/weather/components/CurrentWeather/types';
 
@@ -12,7 +10,7 @@ export const RadioItem = ({
   check,
   onChange,
 }: RadioItemProps) => {
-  const { trueInfo } = useContext<AppContext>(Context);
+  const { trueInfo } = useAppContext();
   return (
     <label htmlFor={forLabel} className={styles.wrapper}>
       <input

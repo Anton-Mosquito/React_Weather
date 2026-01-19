@@ -1,15 +1,13 @@
 import type { FormEventHandler } from 'react';
-import { useCallback, useContext, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { SearchBox } from './searchBox';
 import { RadioBox } from './radioBox';
-
-import { Context } from '@/context';
-import { AppContext } from '@/types';
+import useAppContext from '@/context';
 
 import styles from './styles.module.scss';
 
 export const SearchForm = () => {
-  const { updateData, updateWeatherCards } = useContext<AppContext>(Context);
+  const { updateData, updateWeatherCards } = useAppContext();
   const [value, setValue] = useState<string>('');
 
   const [radioValue, setRadioValue] = useState([
