@@ -1,4 +1,4 @@
-import { IWeather } from '../../../../../models/dataCity.model';
+import { IWeather } from '../../../../../types';
 import styles from './styles.module.scss';
 
 type DataProps = {

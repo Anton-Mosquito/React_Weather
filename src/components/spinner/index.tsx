@@ -1,5 +1,1 @@
-import styles from './styles.module.scss';
-
-export const Spinner = () => {
-  return <div className={styles.spinner}></div>;
-};
+export { default as Spinner } from '@features/weather/components/Spinner';

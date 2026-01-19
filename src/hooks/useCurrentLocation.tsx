@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
-import { ICoords } from '../models/coords.model';
-import { IOptions } from '../models/options.model';
+import { Coordinates, GeolocationOptions } from '../types';
 
-const useCurrentLocation = (options: IOptions) => {
-  const [location, setLocation] = useState<ICoords>();
+const useCurrentLocation = (options: GeolocationOptions) => {
+  const [location, setLocation] = useState<Coordinates>();
   const [error, setError] = useState<string>();
 
   const handleSuccess = (pos: GeolocationPosition): void => {

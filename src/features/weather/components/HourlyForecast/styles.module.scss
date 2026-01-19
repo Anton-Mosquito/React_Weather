@@ -1,0 +1,14 @@
+.list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 12px;
+}
+
+.item {
+  background: rgba(255, 255, 255, 0.04);
+  padding: 8px;
+  border-radius: 6px;
+}
+.cards {
+  display: grid;
+}

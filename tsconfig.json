@@ -22,10 +22,19 @@
     "noEmit": true,
     "useDefineForClassFields": true,
     "baseUrl": "./src",
-    "types": ["vite/client"]
+    "paths": {
+      "@/*": ["*"],
+      "@features/*": ["features/*"],
+      "@shared/*": ["shared/*"]
+    },
+    "types": ["vite/client", "node"]
   },
   "include": [
     "src"
+  ],
+  "exclude": [
+    "src/components/currentWeather/**",
+    "src/store/services/weatherApi.service.ts"
   ],
   "references": []
 }

@@ -2,6 +2,8 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.scss';
 import App from './App';
+import { Provider } from 'react-redux';
+import { store } from './store/store';
 import WebFont from 'webfontloader';
 
 WebFont.load({
@@ -14,6 +16,8 @@ const container = document.getElementById('root')!;
 const root = createRoot(container);
 root.render(
   <StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </StrictMode>
 );

@@ -1,5 +1,4 @@
-import { ICoords } from '../models/coords.model';
-import IData from '../models/dataPosition.model';
+import { Coordinates, OpenWeatherWeatherResponse } from '../types';
 
 const API_KEY: string = '44b788430b6eae4f49d10064566fc911';
 const URL: string = 'http://api.openweathermap.org/data/2.5/weather?';
@@ -9,8 +8,8 @@ const delay = (ms: number) => {
 };
 
 export default async function getWeather(
-  coords: ICoords
-): Promise<IData | undefined> {
+  coords: Coordinates
+): Promise<OpenWeatherWeatherResponse | undefined> {
   let result;
   try {
     await delay(3000);

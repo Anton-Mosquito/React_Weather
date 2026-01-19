@@ -1,9 +1,8 @@
-import type { FC } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { FourHundredFour } from './components/404';
-import { Main } from './components/main';
+import { Main } from '@features/weather/components/Main';
 
-export const App: FC = () => {
+export const App = () => {
   return (
     <Router>
       <Route exact path="/" component={Main} />

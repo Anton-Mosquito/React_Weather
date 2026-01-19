@@ -1,10 +1,10 @@
 import { useContext } from 'react';
 import { Context } from '../../../../context';
-import ChangeContext from '../../../../models/context.model';
+import { AppContext } from '../../../../types';
 import styles from './styles.module.scss';
 
 export const DescriptionHeader: React.FC = () => {
-  const { dataPosition } = useContext<ChangeContext>(Context);
+  const { dataPosition } = useContext<AppContext>(Context);
   const date: number | undefined = dataPosition?.dt;
   return (
     <div className={styles.header}>

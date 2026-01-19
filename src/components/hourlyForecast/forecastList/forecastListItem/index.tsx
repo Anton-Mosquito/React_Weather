@@ -3,7 +3,7 @@ import { CityField } from './cityField';
 import { ImageField } from './imageField';
 import { DateField } from './dateField';
 import { DataListField } from './dataListField';
-import { IMainInfo, IWeather } from '../../../../models/dataCity.model';
+import { IMainInfo, IWeather } from '../../../../types';
 
 import styles from './styles.module.scss';
 

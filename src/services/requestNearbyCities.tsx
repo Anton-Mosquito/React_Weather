@@ -1,5 +1,4 @@
-import { ICoords } from '../models/coords.model';
-import { IDataCity } from '../models/dataCity.model';
+import { Coordinates, OpenWeatherFindResponse } from '../types';
 
 const API_KEY: string = '44b788430b6eae4f49d10064566fc911';
 const URL: string = 'http://api.openweathermap.org/data/2.5/find?';
@@ -9,8 +8,8 @@ const delay = (ms: number) => {
 };
 
 export default async function getNearbyCities(
-  coords: ICoords
-): Promise<IDataCity | undefined> {
+  coords: Coordinates
+): Promise<OpenWeatherFindResponse | undefined> {
   let result;
   try {
     await delay(3000);

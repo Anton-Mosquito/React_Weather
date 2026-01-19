@@ -1,4 +1,4 @@
-import { IDataCity } from '../models/dataCity.model';
+import { OpenWeatherFindResponse } from '../types';
 
 const API_KEY: string = '44b788430b6eae4f49d10064566fc911';
 const URL: string = 'http://api.openweathermap.org/data/2.5/forecast?';
@@ -9,7 +9,7 @@ const delay = (ms: number) => {
 
 export default async function getWet(
   city: string
-): Promise<IDataCity | undefined> {
+): Promise<OpenWeatherFindResponse | undefined> {
   let result;
   try {
     await delay(3000);
