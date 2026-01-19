@@ -4,7 +4,7 @@ const API_KEY: string = '44b788430b6eae4f49d10064566fc911';
 const URL: string = 'http://api.openweathermap.org/data/2.5/forecast?';
 
 const delay = (ms: number) => {
-  return new Promise((resolve: any) => setTimeout(() => resolve(), ms));
+  return new Promise<void>((resolve) => setTimeout(resolve, ms));
 };
 
 export default async function getWet(

@@ -11,7 +11,7 @@ type DataProps = {
 export const RadioBox = ({ info, change }: DataProps) => {
   return (
     <p className={styles.choise}>
-      {info.map((item: any) => (
+      {info.map((item: IRadio) => (
         <RadioItem key={item.id} onChange={change} {...item} />
       ))}
     </p>

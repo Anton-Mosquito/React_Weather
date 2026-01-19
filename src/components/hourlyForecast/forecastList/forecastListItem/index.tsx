@@ -21,32 +21,38 @@ export const ForecastListItem: React.FC<CityProps> = ({ data }) => {
   let windArray: ArrayKey[] = [];
 
   if (data) {
-    cityData = Object.entries(data).filter((item: any) => item[0] === 'name');
-    dateData = Object.entries(data).filter((item: any) => item[0] === 'dt');
+    cityData = Object.entries(data).filter(
+      (item: [string, unknown]) => item[0] === 'name'
+    );
+    dateData = Object.entries(data).filter(
+      (item: [string, unknown]) => item[0] === 'dt'
+    );
     imageData = Object.values(data.weather);
     temperatureArray = Object.entries(data).filter(
-      (item: any) => item[0] === 'main'
+      (item: [string, unknown]) => item[0] === 'main'
     );
-    windArray = Object.entries(data).filter((item: any) => item[0] === 'wind');
+    windArray = Object.entries(data).filter(
+      (item: [string, unknown]) => item[0] === 'wind'
+    );
   }
 
   return (
     <div className={styles.cards}>
       {cityData.length > 0
         ? cityData.map((item: ArrayKey, index: number) => (
-            <CityField key={index} data={item} />
+            <CityField key={index} data={item as ArrayKey} />
           ))
         : dateData.map((item: ArrayKey, index: number) => (
-            <DateField key={index} data={item} />
+            <DateField key={index} data={item as ArrayKey} />
           ))}
       {imageData.map((item: IWeather, index: number) => (
         <ImageField key={index} data={item} />
       ))}
       {temperatureArray.map((item: ArrayKey, index: number) => (
-        <DataListField key={index} data={item} />
+        <DataListField key={index} data={item as ArrayKey} />
       ))}
       {windArray.map((item: ArrayKey, index: number) => (
-        <DataListField key={index} data={item} />
+        <DataListField key={index} data={item as ArrayKey} />
       ))}
     </div>
   );
