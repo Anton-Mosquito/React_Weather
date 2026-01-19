@@ -1,6 +1,6 @@
-import { ICoords } from "../models/coords.model";
+import { ICoords } from '../models/coords.model';
 
 export const defaultCoords: ICoords = {
-    lat:  50.4546600,
-    lon:  30.5238000,
+  lat: 50.45466,
+  lon: 30.5238,
 };

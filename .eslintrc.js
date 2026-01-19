@@ -28,6 +28,8 @@ module.exports = {
   rules: {
     'prettier/prettier': 'error',
     'react/prop-types': 'off',
+    'react/react-in-jsx-scope': 'off',
     '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }]
   }
 };
+
