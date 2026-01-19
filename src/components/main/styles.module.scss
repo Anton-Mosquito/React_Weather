@@ -6,6 +6,14 @@ $animationDuration: 6s;
 $amount: 20;
 $colors: (#171730, #21172f, #15222c);
 
+@function rand-sign() {
+  @if math.random() > 0.5 {
+    @return -1;
+  } @else {
+    @return 1;
+  }
+}
+
 .wrapper {
   position: relative;
   .background {
@@ -32,8 +40,7 @@ $colors: (#171730, #21172f, #15222c);
           animation-delay: math.div(math.random(math.div(( $animationDuration + 10s) * 10, 1s)), 10) * -1s;
           transform-origin: (math.random(50) - 25) * 1vw (math.random(50) - 25) * 1vh;
           $blurRadius: (math.random() + 0.5) * $particleSize * 0.5;
-          $x: if(math.random() > 0.5, -1, 1);
-          box-shadow: ($particleSize * 2 * $x) 0 $blurRadius currentColor;
+          box-shadow: ($particleSize * 2 * rand-sign()) 0 $blurRadius currentColor;
         }
       }
     }
