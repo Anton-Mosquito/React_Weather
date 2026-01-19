@@ -29,13 +29,15 @@
   "dependencies": {
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
-    "react-router-dom": "^7.12.0",
+    "react-router-dom": "^5.3.4",
     "webfontloader": "^1.6.28"
   },
   "devDependencies": {
     "@types/node": "^25.0.9",
     "@types/react": "^19.2.8",
     "@types/react-dom": "^19.2.3",
+    "@types/react-router-dom": "^5.3.3",
+    "@types/webfontloader": "^1.6.38",
     "@typescript-eslint/eslint-plugin": "^8.53.0",
     "@typescript-eslint/parser": "^8.53.0",
     "@vitejs/plugin-react": "^5.1.2",

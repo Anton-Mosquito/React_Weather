@@ -1,26 +1,32 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "ES2022",
     "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
+      "DOM",
+      "DOM.Iterable",
+      "ES2022"
     ],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
     "allowJs": true,
-    "skipLibCheck": true,
+    "jsx": "react-jsx",
+    "sourceMap": true,
+    "resolveJsonModule": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
     "strict": true,
+    "noImplicitAny": false,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "useDefineForClassFields": true,
+    "baseUrl": "./src",
+    "types": ["vite/client"]
   },
   "include": [
     "src"
-  ]
+  ],
+  "references": []
 }
