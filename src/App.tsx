@@ -1,9 +1,9 @@
-import React from 'react';
+import type { FC } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { FourHundredFour } from './components/404';
 import { Main } from './components/main';
 
-export const App: React.FC = () => {
+export const App: FC = () => {
   return (
     <Router>
       <Route exact path="/" component={Main} />
