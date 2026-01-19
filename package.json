@@ -15,9 +15,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    
     "deploy": "gh-pages -d build",
-    "predeploy": "npm run build",
+    "predeploy": "npm run build"
     
   },
   "eslintConfig": {
@@ -49,9 +48,4 @@
     "vite-tsconfig-paths": "^4.0.0",
     "sass": "^1.64.0"
   }
-      "typescript": "^4.2.4",
-      "vite": "^5.0.0",
-      "@vitejs/plugin-react": "^4.0.0",
-      "vite-tsconfig-paths": "^4.0.0",
-      "sass": "^1.64.0"
 }
