@@ -1,0 +1,105 @@
+@use 'sass:list';
+@use 'sass:math';
+
+$particleSize: 20vmin;
+$animationDuration: 6s;
+$amount: 20;
+$colors: (#171730, #21172f, #15222c);
+
+@function rand-sign() {
+  @if math.random() > 0.5 {
+    @return -1;
+  } @else {
+    @return 1;
+  }
+}
+
+.wrapper {
+  position: relative;
+  .background {
+    width: 100vw;
+    height: 100vh;
+    background: #48484a;
+    z-index: 1;
+    .span {
+      width: $particleSize;
+      height: $particleSize;
+      border-radius: $particleSize;
+      backface-visibility: hidden;
+      position: absolute;
+      animation-name: move;
+      animation-duration: $animationDuration;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+      @for $i from 1 through $amount {
+        &:nth-child(#{$i}) {
+          color: list.nth($colors, math.random(list.length($colors)));
+          top: math.random(100) * 1%;
+          left: math.random(100) * 1%;
+          animation-duration: math.div(
+              math.random(math.div($animationDuration * 10, 1s)),
+              10
+            ) *
+            1s +
+            10s;
+          animation-delay: math.div(
+              math.random(math.div(($animationDuration + 10s) * 10, 1s)),
+              10
+            ) *
+            -1s;
+          transform-origin: (math.random(50) - 25) *
+            1vw
+            (math.random(50) - 25) *
+            1vh;
+          $blurRadius: (math.random() + 0.5) * $particleSize * 0.5;
+          box-shadow: ($particleSize * 2 * rand-sign())
+            0
+            $blurRadius
+            currentColor;
+        }
+      }
+    }
+  }
+  .container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 72% 28%;
+    grid-template-rows: 1fr;
+    overflow-y: scroll;
+  }
+}
+
+@keyframes move {
+  100% {
+    transform: translate3d(0, 0, 1px) rotate(360deg);
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .wrapper {
+    .container {
+      grid-template-columns: 1fr;
+      grid-template-rows: 680px 680px;
+    }
+  }
+}
+
+@media screen and (min-width: 440px) and (max-width: 650px) {
+  .wrapper {
+    .container {
+      grid-template-rows: 1200px 680px;
+    }
+  }
+}
+
+@media screen and (max-width: 440px) {
+  .wrapper {
+    .container {
+      grid-template-rows: 1838px 680px;
+    }
+  }
+}
