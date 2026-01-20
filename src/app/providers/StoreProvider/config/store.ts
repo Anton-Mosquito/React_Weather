@@ -1,10 +1,17 @@
-import { type ReducersMapObject, configureStore } from '@reduxjs/toolkit';
-import { type ThunkExtraArg, type StateSchema } from './StateSchema';
-import { userReducer } from '@/entities/User';
+import {
+  type ReducersMapObject,
+  configureStore,
+  type Reducer,
+} from '@reduxjs/toolkit';
+import { setupListeners } from '@reduxjs/toolkit/query';
+import {
+  type ThunkExtraArg,
+  type StateSchema,
+  type ReduxStoreWithManager,
+} from './StateSchema';
 import { createReducerManager } from './reducerManager';
-import { $api } from '@/shared/api/api';
-import { uiReducer } from '@/features/UI';
-import { rtkApi } from '@/shared/api/rtkApi';
+import appReducer from '@/store/slices/appSlice';
+import { weatherApi } from '@/store/services/weatherApi.service';
 
 export function createReduxStore(
   initialState?: StateSchema,
@@ -12,37 +19,32 @@ export function createReduxStore(
 ) {
   const rootReducers: ReducersMapObject<StateSchema> = {
     ...asyncReducers,
-    user: userReducer,
-    ui: uiReducer,
-    [rtkApi.reducerPath]: rtkApi.reducer,
+    app: appReducer,
+    [weatherApi.reducerPath]: weatherApi.reducer,
   };
 
   const reducerManager = createReducerManager(rootReducers);
 
-  const extraArg: ThunkExtraArg = {
-    api: $api,
-  };
+  const extraArg: ThunkExtraArg = {};
 
   const store = configureStore({
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-expect-error
-    reducer: reducerManager.reduce as ReducersMapObject<StateSchema>,
-    devTools: __IS_DEV__,
+    reducer: reducerManager.reduce as Reducer<StateSchema>,
+    devTools: import.meta.env.DEV,
     preloadedState: initialState,
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({
         thunk: {
           extraArgument: extraArg,
         },
-      }).concat(rtkApi.middleware),
+      }).concat(weatherApi.middleware),
   });
 
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
-  store.reducerManager = reducerManager;
+  (store as ReduxStoreWithManager).reducerManager = reducerManager;
+
+  setupListeners(store.dispatch);
 
   return store;
 }
 
-// export type RootState = ReturnType<typeof createReduxStore.getState>
+//export type RootState = ReturnType<typeof createReduxStore.getState>;
 export type AppDispatch = ReturnType<typeof createReduxStore>['dispatch'];

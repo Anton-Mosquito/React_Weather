@@ -4,7 +4,7 @@ import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import WebFont from 'webfontloader';
 import App from './app/App';
-import './index.scss';
+import '@/app/styles/reset.scss';
 
 WebFont.load({
   google: {
@@ -14,13 +14,6 @@ WebFont.load({
 
 const container = document.getElementById('root')!;
 const root = createRoot(container);
-// root.render(
-//   <StrictMode>
-//     <Provider store={store}>
-//       <App />
-//     </Provider>
-//   </StrictMode>
-// );
 
 root.render(
   <BrowserRouter>

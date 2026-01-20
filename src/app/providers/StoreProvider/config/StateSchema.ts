@@ -4,29 +4,12 @@ import {
   type Action,
   type Reducer,
 } from '@reduxjs/toolkit';
-import { type AxiosInstance } from 'axios';
-import { type ArticleDetailsSchema } from '@/entities/Article';
-import { type UserSchema } from '@/entities/User';
-import { type LoginSchema } from '@/features/AuthByUsername';
-import { type UISchema } from '@/features/UI';
-import { type AddCommentFormSchema } from '@/features/addCommentForm';
-import { type ProfileSchema } from '@/features/editableProfileCard';
-import { type ArticleDetailsPageSchema } from '@/pages/ArticleDetailsPage';
-import { type ArticlesPagesSchema } from '@/pages/ArticlesPage';
-import { type rtkApi } from '@/shared/api/rtkApi';
+import { type IAppState } from '@/types';
+import { type weatherApi } from '@/store/services/weatherApi.service';
 
 export interface StateSchema {
-  user: UserSchema;
-  ui: UISchema;
-  [rtkApi.reducerPath]: ReturnType<typeof rtkApi.reducer>;
-
-  // Asynchronous reducers
-  loginForm?: LoginSchema;
-  profile?: ProfileSchema;
-  articleDetails?: ArticleDetailsSchema;
-  addCommentForm?: AddCommentFormSchema;
-  articlesPage?: ArticlesPagesSchema;
-  articleDetailsPage?: ArticleDetailsPageSchema;
+  app: IAppState;
+  [weatherApi.reducerPath]: ReturnType<typeof weatherApi.reducer>;
 }
 
 export type StateSchemaKey = keyof StateSchema;
@@ -34,10 +17,7 @@ export type MountedReducers = OptionalRecord<StateSchemaKey, boolean>;
 
 export interface ReducerManager {
   getReducerMap: () => ReducersMapObject<StateSchema>;
-  reduce: (
-    state: StateSchema,
-    action: Action
-  ) => ReducersMapObject<StateSchema>;
+  reduce: (state: StateSchema, action: Action) => StateSchema;
   add: (key: StateSchemaKey, reducer: Reducer) => void;
   remove: (key: StateSchemaKey) => void;
   getMountedReducers: () => MountedReducers;
@@ -48,7 +28,7 @@ export interface ReduxStoreWithManager extends EnhancedStore<StateSchema> {
 }
 
 export interface ThunkExtraArg {
-  api: AxiosInstance;
+  // api: AxiosInstance;
 }
 
 export interface ThunkConfig<T> {

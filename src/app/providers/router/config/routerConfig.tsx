@@ -6,10 +6,10 @@ import { type RouteProps } from 'react-router-dom';
 export const routeConfig: Record<AppRoutes, RouteProps> = {
   [AppRoutes.MAIN]: {
     path: getRouteMain(),
-    component: Main,
+    element: <Main />,
   },
   [AppRoutes.NOT_FOUND]: {
     path: '*',
-    component: ErrorPage,
+    element: <ErrorPage />,
   },
 };

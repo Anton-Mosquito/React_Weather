@@ -20,5 +20,5 @@ export const initialState: IAppState = {
   loadingCards: false,
   loadingMain: false,
   typeRequest: '',
-  trueInfo: true,
+  trueInfo: false,
 };

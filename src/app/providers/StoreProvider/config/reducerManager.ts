@@ -27,7 +27,6 @@ export function createReducerManager(
       if (keysToRemove.length > 0) {
         state = { ...state };
         keysToRemove.forEach((key) => {
-          // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
           delete state[key];
         });
         keysToRemove = [];
@@ -48,7 +47,6 @@ export function createReducerManager(
       if (!key || !reducers[key]) {
         return;
       }
-      // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
       delete reducers[key];
       keysToRemove.push(key);
       mountedReducers[key] = false;

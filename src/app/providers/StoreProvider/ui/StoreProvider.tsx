@@ -14,7 +14,7 @@ export const StoreProvider = ({
   children,
   initialState,
   asyncReducers,
-}: StoreProviderProps): JSX.Element => {
+}: StoreProviderProps) => {
   const store = createReduxStore(
     initialState as StateSchema,
     asyncReducers as ReducersMapObject<StateSchema>

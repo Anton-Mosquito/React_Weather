@@ -31,7 +31,7 @@
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
     "react-redux": "^9.2.0",
-    "react-router-dom": "^5.3.4",
+    "react-router-dom": "^7.12.0",
     "webfontloader": "^1.6.28"
   },
   "devDependencies": {
