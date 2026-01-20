@@ -1,5 +1,5 @@
 import styles from './styles.module.scss';
-import sprite from '../../../../../../assets/sprite.svg';
+import ArrowIcon from '@/assets/icons/arrow.svg?react';
 
 type DataProps = {
   data: [string, number];
@@ -33,10 +33,8 @@ export const DataListFieldItem: React.FC<DataProps> = ({ data }) => {
     <li className={styles.item}>
       <span>{nameOfFields}</span>
       <span>
-        {nameOfFields === 'Direction' ? (
-          <svg className={styles.icon} style={{ transform: rotate }}>
-            <use href={sprite + '#arrow'}></use>
-          </svg>
+          {nameOfFields === 'Direction' ? (
+          <ArrowIcon className={styles.icon} style={{ transform: rotate }} />
         ) : (
           valueOfField
         )}

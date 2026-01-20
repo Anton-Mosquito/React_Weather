@@ -1,4 +1,4 @@
-import sprite from '@/assets/sprite.svg';
+import SearchIcon from '@/assets/icons/search.svg?react';
 import { ChangeEvent } from 'react';
 import styles from './styles.module.scss';
 import type { SearchBoxProps } from '@features/weather/components/CurrentWeather/types';
@@ -16,9 +16,7 @@ export const SearchBox = ({ valueOfField, changeValue }: SearchBoxProps) => {
         value={valueOfField}
       />
       <button className={styles.button} type="submit">
-        <svg className={styles.icon}>
-          <use href={sprite + '#search'}></use>
-        </svg>
+        <SearchIcon className={styles.icon} />
       </button>
     </p>
   );

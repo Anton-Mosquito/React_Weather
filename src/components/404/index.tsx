@@ -1,15 +1,12 @@
-import type { FC } from 'react';
 import styles from './styles.module.scss';
-import sprite from '../../assets/sprite.svg';
+import Icon404 from '@/components/ui/icons/404.svg?react';
 
-export const FourHundredFour: FC = () => {
+export const FourHundredFour = () => {
   return (
     <div className={styles.container404}>
       <h4 className={styles.messageMain}>Page not found</h4>
       <div>
-        <svg className={styles.icon}>
-          <use href={`${sprite}#404`} />
-        </svg>
+        <Icon404 className={styles.icon} />
       </div>
       <p className={styles.messageAdditional}>
         This city does not exist, check the name of the city and make a second

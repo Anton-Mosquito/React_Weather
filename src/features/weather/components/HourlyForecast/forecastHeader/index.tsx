@@ -1,5 +1,5 @@
 import React from 'react';
-import sprite from '@/assets/sprite.svg';
+import LadyIcon from '@/assets/icons/lady.svg?react';
 import useAppContext from '@/context';
 import styles from './styles.module.scss';
 
@@ -9,9 +9,7 @@ const ForecastHeader: React.FC = () => {
     <header className={styles.wrapper}>
       <h2 className={styles.header}>{typeRequset} forecast</h2>
       <div className={styles.box}>
-        <svg className={styles.icon}>
-          <use href={sprite + '#lady'} />
-        </svg>
+        <LadyIcon className={styles.icon} />
       </div>
     </header>
   );

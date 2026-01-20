@@ -1,5 +1,5 @@
 import styles from './styles.module.scss';
-import sprite from '@/assets/sprite.svg';
+import ArrowIcon from '@/assets/icons/arrow.svg?react';
 
 type ValueProps = {
   value: [string, number];
@@ -65,9 +65,7 @@ export const DescriptionListItem: React.FC<ValueProps> = ({ value }) => {
       <span>{firstFieldName}</span>
       <span>
         {firstFieldName === 'Direction' ? (
-          <svg className={styles.icon} style={{ transform: rotate }}>
-            <use href={sprite + '#arrow'}></use>
-          </svg>
+          <ArrowIcon className={styles.icon} style={{ transform: rotate }} />
         ) : (
           secondFieldName
         )}
