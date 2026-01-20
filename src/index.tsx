@@ -1,10 +1,10 @@
-import { StrictMode } from 'react';
+import { ErrorBoundary } from '@/app/providers/ErrorBoundary';
+import { StoreProvider } from '@/app/providers/StoreProvider';
 import { createRoot } from 'react-dom/client';
-import './index.scss';
-import App from './App';
-import { Provider } from 'react-redux';
-import { store } from './store/store';
+import { BrowserRouter } from 'react-router-dom';
 import WebFont from 'webfontloader';
+import App from './app/App';
+import './index.scss';
 
 WebFont.load({
   google: {
@@ -14,10 +14,20 @@ WebFont.load({
 
 const container = document.getElementById('root')!;
 const root = createRoot(container);
+// root.render(
+//   <StrictMode>
+//     <Provider store={store}>
+//       <App />
+//     </Provider>
+//   </StrictMode>
+// );
+
 root.render(
-  <StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </StrictMode>
+  <BrowserRouter>
+    <StoreProvider initialState={{}}>
+      <ErrorBoundary>
+        <App />
+      </ErrorBoundary>
+    </StoreProvider>
+  </BrowserRouter>
 );

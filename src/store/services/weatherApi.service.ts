@@ -36,6 +36,7 @@ export const weatherApi = createApi({
     getWeatherByCity: builder.query<Weather[], string>({
       query: (q) => ({ url: '/find', params: { q, appid: API_KEY } }),
       transformResponse: (response: OpenWeatherFindResponse) => {
+        console.log('🚀 ~ response:', response);
         const cleaned = cleanApiPayload(
           response as any
         ) as OpenWeatherFindResponse;
@@ -65,6 +66,7 @@ export const weatherApi = createApi({
         params: { lat, lon, appid: API_KEY },
       }),
       transformResponse: (response: OpenWeatherWeatherResponse) => {
+        console.log('🚀 ~ response:', response);
         const cleaned = cleanApiPayload(
           response as any
         ) as OpenWeatherWeatherResponse;

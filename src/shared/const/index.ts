@@ -15,8 +15,8 @@ export const geolocationOptions: GeolocationOptions = {
 export const dots = new Array(20).fill(0).map((_, index) => index);
 
 export const initialState: IAppState = {
-  dataCity: undefined,
-  dataPosition: undefined,
+  dataCity: [],
+  dataPosition: {},
   loadingCards: false,
   loadingMain: false,
   typeRequest: '',

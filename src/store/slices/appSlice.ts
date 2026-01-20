@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { Weather } from '@/types/domain/weather';
-import { initialState } from '@/constant';
+import { initialState } from '@/shared/const';
 
 const appSlice = createSlice({
   name: 'app',

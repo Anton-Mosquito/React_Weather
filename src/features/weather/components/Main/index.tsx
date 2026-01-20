@@ -4,7 +4,7 @@ import { useCurrentLocation } from '@/hooks';
 import { CurrentWeather } from '@features/weather/components/CurrentWeather';
 import HourlyForecast from '@features/weather/components/HourlyForecast';
 
-import { geolocationOptions, defaultCoords, dots } from '@/constant';
+import { geolocationOptions, defaultCoords, dots } from '@/shared/const';
 import { Coordinates, OpenWeatherWeatherResponse, Weather } from '@/types';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import {
@@ -69,6 +69,7 @@ export const Main = () => {
           lat: location.lat,
           lon: location.lon,
         }).unwrap();
+        console.log('🚀 ~ Main ~ weather:', weather);
 
         const cityName = weather?.city?.name ?? '';
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
