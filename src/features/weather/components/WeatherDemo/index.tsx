@@ -1,6 +1,6 @@
 import React from 'react';
 import { useGetWeatherQuery } from '@/store/services/weatherApi.service';
-import { defaultCoords } from '@/constant/defaultCoords';
+import { defaultCoords } from '@/constant';
 
 const WeatherDemo: React.FC = () => {
   const { data, error, isLoading } = useGetWeatherQuery({

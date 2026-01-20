@@ -6,12 +6,11 @@ import IconLady from '@/assets/icons/lady.svg?react';
 
 type SvgComponent = ComponentType<SVGProps<SVGSVGElement>>;
 
-
 const iconsMap: Record<string, SvgComponent> = {
-    '404': Icon404,
-	search: IconSearch,
-	lady: IconLady,
-    arrow: IconArrow,
+  '404': Icon404,
+  search: IconSearch,
+  lady: IconLady,
+  arrow: IconArrow,
 };
 
 export { Icon404, IconSearch, IconLady };

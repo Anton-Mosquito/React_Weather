@@ -33,7 +33,7 @@ export const DataListFieldItem: React.FC<DataProps> = ({ data }) => {
     <li className={styles.item}>
       <span>{nameOfFields}</span>
       <span>
-          {nameOfFields === 'Direction' ? (
+        {nameOfFields === 'Direction' ? (
           <ArrowIcon className={styles.icon} style={{ transform: rotate }} />
         ) : (
           valueOfField

@@ -48,13 +48,23 @@ const mapCurrentToForecast = (c: OpenWeatherCurrent): ForecastItem => ({
   uvi: c.uvi,
   clouds: c.clouds,
   visibility: c.visibility,
-  wind: mapWind(c.wind_speed ?? undefined, c.wind_deg ?? undefined, c.wind_gust ?? undefined),
+  wind: mapWind(
+    c.wind_speed ?? undefined,
+    c.wind_deg ?? undefined,
+    c.wind_gust ?? undefined
+  ),
   weather: mapConditions(c.weather),
   pop: (c as any).pop ?? undefined,
   rain: c.rain
-    ? (typeof c.rain === 'object' ? (c.rain['1h'] ?? c.rain) : c.rain)
+    ? typeof c.rain === 'object'
+      ? (c.rain['1h'] ?? c.rain)
+      : c.rain
     : undefined,
-  snow: c.snow ? (typeof c.snow === 'object' ? (c.snow['1h'] ?? c.snow) : c.snow) : undefined,
+  snow: c.snow
+    ? typeof c.snow === 'object'
+      ? (c.snow['1h'] ?? c.snow)
+      : c.snow
+    : undefined,
 });
 
 const mapHourlyToForecast = (h: OpenWeatherHourlyItem): ForecastItem => ({
@@ -67,11 +77,23 @@ const mapHourlyToForecast = (h: OpenWeatherHourlyItem): ForecastItem => ({
   uvi: h.uvi,
   clouds: h.clouds,
   visibility: h.visibility,
-  wind: mapWind(h.wind_speed ?? undefined, h.wind_deg ?? undefined, h.wind_gust ?? undefined),
+  wind: mapWind(
+    h.wind_speed ?? undefined,
+    h.wind_deg ?? undefined,
+    h.wind_gust ?? undefined
+  ),
   weather: mapConditions(h.weather),
   pop: h.pop,
-  rain: h.rain ? (typeof h.rain === 'object' ? (h.rain['1h'] ?? h.rain) : h.rain) : undefined,
-  snow: h.snow ? (typeof h.snow === 'object' ? (h.snow['1h'] ?? h.snow) : h.snow) : undefined,
+  rain: h.rain
+    ? typeof h.rain === 'object'
+      ? (h.rain['1h'] ?? h.rain)
+      : h.rain
+    : undefined,
+  snow: h.snow
+    ? typeof h.snow === 'object'
+      ? (h.snow['1h'] ?? h.snow)
+      : h.snow
+    : undefined,
 });
 
 const mapDailyToForecast = (d: OpenWeatherDaily): ForecastItem => {
@@ -85,7 +107,11 @@ const mapDailyToForecast = (d: OpenWeatherDaily): ForecastItem => {
     dew_point: d.dew_point,
     uvi: d.uvi,
     clouds: d.clouds,
-    wind: mapWind(d.wind_speed ?? undefined, d.wind_deg ?? undefined, undefined),
+    wind: mapWind(
+      d.wind_speed ?? undefined,
+      d.wind_deg ?? undefined,
+      undefined
+    ),
     weather: mapConditions(d.weather),
     pop: d.pop,
     rain: d.rain,

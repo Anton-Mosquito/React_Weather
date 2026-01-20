@@ -1,4 +1,4 @@
-import { /* useContext */ } from 'react';
+import {} from /* useContext */ 'react';
 import useAppContext from '@/context';
 import styles from './styles.module.scss';
 import type { ForecastItem } from '@/types';

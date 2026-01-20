@@ -1,4 +1,4 @@
-import { /* useContext */ } from 'react';
+import {} from /* useContext */ 'react';
 import { Description } from './description';
 import { Header } from './header';
 import { SearchForm } from './search';

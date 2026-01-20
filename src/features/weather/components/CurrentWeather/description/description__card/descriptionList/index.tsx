@@ -1,4 +1,4 @@
-import { /* useContext */ } from 'react';
+import {} from /* useContext */ 'react';
 import useAppContext from '@/context';
 import { DescriptionListItem } from './descriptionListItem';
 import styles from './styles.module.scss';
@@ -21,22 +21,33 @@ export const DescriptionList = ({ title }: TitleProps) => {
     switch (title) {
       case 'Temperature parameters':
         temperatureArray = Object.entries(current ?? {}).filter(
-          (item) => item[0] !== 'temp' && item[0] !== 'weather' && item[0] !== 'dt'
+          (item) =>
+            item[0] !== 'temp' && item[0] !== 'weather' && item[0] !== 'dt'
         ) as ArrayKey[];
         break;
       case 'Sunrise & Sunset data':
-        sunArray = current && 'sunrise' in (current as any) ? [[ 'sunrise', (current as any).sunrise ], ['sunset',(current as any).sunset]] : [];
+        sunArray =
+          current && 'sunrise' in (current as any)
+            ? [
+                ['sunrise', (current as any).sunrise],
+                ['sunset', (current as any).sunset],
+              ]
+            : [];
         break;
       case 'Visibility':
-        visibilityArray = Object.entries({ visibility: (current as any)?.visibility }).filter(
-          (item) => item[1] !== undefined
-        ) as ArrayKey[];
+        visibilityArray = Object.entries({
+          visibility: (current as any)?.visibility,
+        }).filter((item) => item[1] !== undefined) as ArrayKey[];
         break;
       case 'Wind':
-        windArray = Object.entries((current as any)?.wind ?? {}).filter((item) => item[0] !== 'gust') as ArrayKey[];
+        windArray = Object.entries((current as any)?.wind ?? {}).filter(
+          (item) => item[0] !== 'gust'
+        ) as ArrayKey[];
         break;
       case 'Cloudiness':
-        cloudArray = Object.entries({ clouds: (current as any)?.clouds ?? undefined }).filter(([,v])=>v!==undefined) as ArrayKey[];
+        cloudArray = Object.entries({
+          clouds: (current as any)?.clouds ?? undefined,
+        }).filter(([, v]) => v !== undefined) as ArrayKey[];
         break;
     }
   }

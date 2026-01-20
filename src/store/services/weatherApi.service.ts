@@ -46,10 +46,18 @@ export const weatherApi = createApi({
       },
     }),
 
-    getNearbyCities: builder.query<Weather[], { lat: number; lon: number; cnt?: number }>({
-      query: ({ lat, lon, cnt = 9 }) => ({ url: '/find', params: { lat, lon, cnt, appid: API_KEY } }),
+    getNearbyCities: builder.query<
+      Weather[],
+      { lat: number; lon: number; cnt?: number }
+    >({
+      query: ({ lat, lon, cnt = 9 }) => ({
+        url: '/find',
+        params: { lat, lon, cnt, appid: API_KEY },
+      }),
       transformResponse: (response: OpenWeatherFindResponse) => {
-        const cleaned = cleanApiPayload(response as any) as OpenWeatherFindResponse;
+        const cleaned = cleanApiPayload(
+          response as any
+        ) as OpenWeatherFindResponse;
         return mapFindResponseToWeathers(cleaned);
       },
     }),

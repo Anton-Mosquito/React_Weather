@@ -1,19 +1,13 @@
-import {
-  useState,
-  useEffect,
-  useRef,
-  useMemo,
-  useCallback,
-} from 'react';
+import { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { useCurrentLocation } from '@/hooks';
 
 import { CurrentWeather } from '@features/weather/components/CurrentWeather';
 import Dots from '@features/weather/components/Dots';
 import HourlyForecast from '@features/weather/components/HourlyForecast';
 
-import { geolocationOptions } from '@/constant/option';
-import { defaultCoords } from '@/constant/defaultCoords';
-import { dots } from '@/constant/quantityOfDots';
+import { geolocationOptions } from '@/constant';
+import { defaultCoords } from '@/constant';
+import { dots } from '@/constant';
 
 import { Coordinates, OpenWeatherWeatherResponse, Weather } from '@/types';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
@@ -36,14 +30,22 @@ import styles from './styles.module.scss';
 export const Main = () => {
   const { location: currentLocation } = useCurrentLocation(geolocationOptions);
   const dispatch = useAppDispatch();
-  const { dataPosition, dataCity, loadingCards, loadingMain, typeRequset, trueInfo } = useAppSelector(
-    (s) => s.app
-  );
+  const {
+    dataPosition,
+    dataCity,
+    loadingCards,
+    loadingMain,
+    typeRequset,
+    trueInfo,
+  } = useAppSelector((s) => s.app);
 
   const lastCoords = useRef<Coordinates>(defaultCoords);
   const lastCity = useRef('');
 
-  const targetLoaction = useMemo(() => currentLocation ?? defaultCoords, [currentLocation]);
+  const targetLoaction = useMemo(
+    () => currentLocation ?? defaultCoords,
+    [currentLocation]
+  );
 
   const [triggerGetWeatherByCity] = useLazyGetWeatherByCityQuery();
   const [triggerGetWeather] = useLazyGetWeatherQuery();
@@ -67,7 +69,10 @@ export const Main = () => {
         // fetch weather (unwrap to get typed data)
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        const weather = await triggerGetWeather({ lat: location.lat, lon: location.lon }).unwrap();
+        const weather = await triggerGetWeather({
+          lat: location.lat,
+          lon: location.lon,
+        }).unwrap();
 
         const cityName = weather?.city?.name ?? '';
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -105,10 +110,13 @@ export const Main = () => {
     dispatch(setTrueInfo(false));
   }, [dispatch]);
 
-  const setDataRequestFromButton = useCallback((result: Weather[] = []) => {
-    dispatch(setDataCity(result));
-    dispatch(setLoadingCards(false));
-  }, [dispatch]);
+  const setDataRequestFromButton = useCallback(
+    (result: Weather[] = []) => {
+      dispatch(setDataCity(result));
+      dispatch(setLoadingCards(false));
+    },
+    [dispatch]
+  );
 
   const updateRequestFromButton = useCallback(
     async (flag: string) => {
@@ -122,7 +130,10 @@ export const Main = () => {
           }
           case 'Nearby': {
             dispatch(setTypeRequest('Nearby'));
-            result = await triggerGetNearbyCities({ lat: lastCoords.current.lat, lon: lastCoords.current.lon }).unwrap();
+            result = await triggerGetNearbyCities({
+              lat: lastCoords.current.lat,
+              lon: lastCoords.current.lon,
+            }).unwrap();
             break;
           }
           default:
@@ -135,7 +146,12 @@ export const Main = () => {
         warningRequest();
       }
     },
-    [setDataRequestFromButton, warningRequest, triggerGetWeatherByCity, triggerGetNearbyCities]
+    [
+      setDataRequestFromButton,
+      warningRequest,
+      triggerGetWeatherByCity,
+      triggerGetNearbyCities,
+    ]
   );
 
   const updateWeatherCards = useCallback(
@@ -173,7 +189,10 @@ export const Main = () => {
         // fetch weather
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        const weather = await triggerGetWeather({ lat: coord.lat, lon: coord.lon }).unwrap();
+        const weather = await triggerGetWeather({
+          lat: coord.lat,
+          lon: coord.lon,
+        }).unwrap();
 
         switch (typeRequset) {
           case 'Hourly':
@@ -191,7 +210,14 @@ export const Main = () => {
         warningRequest();
       }
     },
-    [setData, setNearbyData, typeRequset, warningRequest, triggerGetWeatherByCity, triggerGetWeather]
+    [
+      setData,
+      setNearbyData,
+      typeRequset,
+      warningRequest,
+      triggerGetWeatherByCity,
+      triggerGetWeather,
+    ]
   );
 
   const updateData = useCallback(
