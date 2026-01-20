@@ -1,23 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { Weather } from '@/types/domain/weather';
-
-interface AppState {
-  dataCity?: Weather[];
-  dataPosition?: Weather | undefined;
-  loadingCards: boolean;
-  loadingMain: boolean;
-  typeRequset: string;
-  trueInfo: boolean;
-}
-
-const initialState: AppState = {
-  dataCity: undefined,
-  dataPosition: undefined,
-  loadingCards: false,
-  loadingMain: false,
-  typeRequset: '',
-  trueInfo: true,
-};
+import { initialState } from '@/constant';
 
 const appSlice = createSlice({
   name: 'app',
@@ -36,7 +19,7 @@ const appSlice = createSlice({
       state.loadingMain = action.payload;
     },
     setTypeRequest(state, action: PayloadAction<string>) {
-      state.typeRequset = action.payload;
+      state.typeRequest = action.payload;
     },
     setTrueInfo(state, action: PayloadAction<boolean>) {
       state.trueInfo = action.payload;

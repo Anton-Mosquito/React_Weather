@@ -1,2 +1,3 @@
-export { default as useCurrentLocation } from './useCurrentLocation';
+export * from './useCurrentLocation';
 export * from './redux';
+export * from './useStore';

@@ -1,19 +1,12 @@
-import React from 'react';
-import styles from './styles.module.scss';
-import ForecastHeader from './forecastHeader';
-import WeatherDemo from '../WeatherDemo';
+import styles from './HourlyForecast.module.scss';
+import ForecastHeader from '@features/weather/components/ForecastHeader';
+import ForecastList from '@features/weather/components/ForecastList';
 
-const HourlyForecast: React.FC = () => {
+const HourlyForecast = () => {
   return (
-    <section>
+    <section className={styles.cards}>
       <ForecastHeader />
-      <WeatherDemo />
-      <div className={styles.list}>
-        {/* placeholder items while migrating */}
-        <div className={styles.item}>10:00 — 12°C</div>
-        <div className={styles.item}>11:00 — 13°C</div>
-        <div className={styles.item}>12:00 — 14°C</div>
-      </div>
+      <ForecastList />
     </section>
   );
 };

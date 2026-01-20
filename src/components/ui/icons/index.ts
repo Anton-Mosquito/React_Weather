@@ -13,5 +13,5 @@ const iconsMap: Record<string, SvgComponent> = {
   arrow: IconArrow,
 };
 
-export { Icon404, IconSearch, IconLady };
+export { Icon404, IconSearch, IconLady, IconArrow };
 export default iconsMap;

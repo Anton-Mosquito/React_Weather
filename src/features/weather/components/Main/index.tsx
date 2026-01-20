@@ -2,13 +2,9 @@ import { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { useCurrentLocation } from '@/hooks';
 
 import { CurrentWeather } from '@features/weather/components/CurrentWeather';
-import Dots from '@features/weather/components/Dots';
 import HourlyForecast from '@features/weather/components/HourlyForecast';
 
-import { geolocationOptions } from '@/constant';
-import { defaultCoords } from '@/constant';
-import { dots } from '@/constant';
-
+import { geolocationOptions, defaultCoords, dots } from '@/constant';
 import { Coordinates, OpenWeatherWeatherResponse, Weather } from '@/types';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import {
@@ -35,7 +31,7 @@ export const Main = () => {
     dataCity,
     loadingCards,
     loadingMain,
-    typeRequset,
+    typeRequest,
     trueInfo,
   } = useAppSelector((s) => s.app);
 
@@ -194,7 +190,7 @@ export const Main = () => {
           lon: coord.lon,
         }).unwrap();
 
-        switch (typeRequset) {
+        switch (typeRequest) {
           case 'Hourly':
             setData({ weather, wet });
             break;
@@ -213,7 +209,7 @@ export const Main = () => {
     [
       setData,
       setNearbyData,
-      typeRequset,
+      typeRequest,
       warningRequest,
       triggerGetWeatherByCity,
       triggerGetWeather,
@@ -231,8 +227,8 @@ export const Main = () => {
   return (
     <section className={styles.wrapper}>
       <div className={styles.background}>
-        {dots().map((item: number) => (
-          <Dots key={item} />
+        {dots.map((item: number) => (
+          <span key={item} className={styles.span} />
         ))}
       </div>
       <div className={styles.container}>

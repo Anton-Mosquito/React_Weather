@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Coordinates, GeolocationOptions } from '../types';
 
-const useCurrentLocation = (options: GeolocationOptions) => {
+export const useCurrentLocation = (options: GeolocationOptions) => {
   const [location, setLocation] = useState<Coordinates>();
   const [error, setError] = useState<string>();
 
@@ -31,5 +31,3 @@ const useCurrentLocation = (options: GeolocationOptions) => {
 
   return { location, error };
 };
-
-export default useCurrentLocation;

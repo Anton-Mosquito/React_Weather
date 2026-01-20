@@ -10,12 +10,9 @@ import type {
   OpenWeatherWeatherResponse,
   OpenWeatherFindResponse,
 } from '../../features/weather/api/types';
-import type { Weather } from '../../features/weather/types/domain';
+import type { Weather } from '@/types';
 
-const API_KEY =
-  typeof process !== 'undefined'
-    ? (process.env.VITE_OPENWEATHER_API_KEY as string)
-    : undefined;
+const API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY;
 
 export const weatherApi = createApi({
   reducerPath: 'weatherApi',

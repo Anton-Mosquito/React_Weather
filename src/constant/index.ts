@@ -1,4 +1,5 @@
 import { Coordinates, GeolocationOptions } from '@/types';
+import type { IAppState } from '@/types';
 
 export const defaultCoords: Coordinates = {
   lat: 50.45466,
@@ -12,3 +13,12 @@ export const geolocationOptions: GeolocationOptions = {
 };
 
 export const dots = new Array(20).fill(0).map((_, index) => index);
+
+export const initialState: IAppState = {
+  dataCity: undefined,
+  dataPosition: undefined,
+  loadingCards: false,
+  loadingMain: false,
+  typeRequest: '',
+  trueInfo: true,
+};
